@@ -1,0 +1,72 @@
+.my-box
+{
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 0px;
+    -webkit-transition: .5s;
+    transition: .5s;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-shadow: 0 4px 15px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 4px 15px 0 rgb(0 0 0 / 10%);;
+}
+.my-box-body {
+    padding: 1.5rem 1.5rem;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    border-radius: 10px;
+}
+a {
+    color: #7792b1;
+}
+.text-dark {
+    color: #475F7B !important;
+}
+.d-flex {
+    display: flex !important;
+}
+.font-weight-700
+{
+    font-weight: 700;
+}
+.font-size-16
+{
+    font-size: 16px;
+}
+.font-size-40
+{
+    font-size: 40px;
+}
+.theme-primary .bg-danger-light {
+    background-color: #ffe2e5 !important;
+    color: #f1376e;
+}
+.w-80 {
+    width: 80px !important;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+    position: relative;
+}
+.l-h-100 {
+    line-height: 7.1428571429rem!important;
+}
+.my-d-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bg-danger-light {
+    background-color: #ffe2e5 !important;
+    color: #f1376e;
+}
+.icon-Cart2
+{
+    position: relative;
+    top: 5px;
+}

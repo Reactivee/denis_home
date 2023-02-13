@@ -1,0 +1,46 @@
+body {
+    font-size: 14px;
+    font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+}
+
+table th {
+    text-align: left;
+}
+
+table td,
+table th {
+    padding: 5px;
+    border: 1px solid #999;
+    font-size: 12px;
+}
+
+.address-customer {
+    width: 49.5%;
+    float: left;
+    height: 310px;
+}
+
+.address-store {
+    width: 49.5%;
+    float: right;
+    height: 310px;
+}
+
+.signature {
+    width: 100%;
+    display: inline-block;
+}
+
+.signature p {
+    width: 50%;
+    margin: 0;
+    text-align: center;
+    float: left;
+}
