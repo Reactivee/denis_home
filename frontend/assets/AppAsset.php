@@ -14,12 +14,13 @@ class AppAsset extends AssetBundle
     public $css = [
         'https://unpkg.com/aos@2.3.1/dist/aos.css',
         'https://unpkg.com/swiper/swiper-bundle.min.css',
-        'css/site.css',
-        'css/style.css',
+//        'css/site.css',
         'css/mobile.css',
         'css/lightbox.min.css',
 //        'css/Box.css',
         'fonts/stylesheet.css',
+        'css/style.css',
+
     ];
     public $js = [
         'https://unpkg.com/aos@2.3.1/dist/aos.js',
@@ -28,7 +29,7 @@ class AppAsset extends AssetBundle
         'https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js',
         'https://unpkg.com/swiper/swiper-bundle.min.js',
 //        'js/Box.js',
-        'js/lightbox.min.js',
+//        'js/lightbox.min.js',
         'js/main.js',
     ];
     public $depends = [

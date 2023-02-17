@@ -4,6 +4,7 @@
 
 /** @var string $content */
 
+use common\models\Settings;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap4\Breadcrumbs;
@@ -18,19 +19,19 @@ AppAsset::register($this);
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <meta name="title" content="Denis">
         <meta name="Description"
               content="ZELAL TEXTILE PRODUCTS OF WORLD QUALITY">
         <?php $this->registerCsrfMetaTags() ?>
-
+        <title>Denis</title>
         <?php $this->head() ?>
-
-        <link rel="apple-touch-icon" sizes="180x180" href="<?= $settings->logo ?>">
-        <link rel="apple-touch-icon" sizes="152x152" href="<?= $settings->logo ?>">
-        <link rel="apple-touch-icon" sizes="144x144" href="<?= $settings->logo ?>">
-        <link rel="mask-icon" href="<?= $settings->logo ?>">
-        <meta property="og:site_name" content="ZELAL TEXTILE">
-        <meta property="og:title" content="ZELAL TEXTILE PRODUCTS OF WORLD QUALITY">
+        <link rel="shortcut icon" href="denis" type="image/x-icon">
+        <!--        <link rel="apple-touch-icon" sizes="180x180" href="--><?//= $settings->logo ?><!--">-->
+        <!--        <link rel="apple-touch-icon" sizes="152x152" href="--><?//= $settings->logo ?><!--">-->
+        <!--        <link rel="apple-touch-icon" sizes="144x144" href="--><?//= $settings->logo ?><!--">-->
+<!--        <link rel="mask-icon" href="--><?//= $settings->logo ?><!--">-->
+        <meta property="og:site_name" content="denis">
+        <meta property="og:title" content="denis">
         <meta property="og:locale" content="en">
         <meta name="keywords"
               content=" fashion,world, industry, textile industry,fashion designing,fashion designer,dresses,style">
@@ -38,8 +39,6 @@ AppAsset::register($this);
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
               integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
               crossorigin="anonymous" referrerpolicy="no-referrer">
-
-
     </head>
     <body class="">
     <?php $this->beginBody() ?>
@@ -58,8 +57,7 @@ AppAsset::register($this);
             <?= Alert::widget() ?>
             <?= $content ?>
         </div>
-        <button onclick="topFunction()" id="myBtn" title="Go to top"><img src="/frontend/web/uploads/rarrow.webp"
-                                                                          alt="arrow"></button>
+
     </div>
 
     <?= $this->render('footer') ?>
