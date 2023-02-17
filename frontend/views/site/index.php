@@ -69,8 +69,10 @@ $this->title = 'Main page';
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
 
 </section>
