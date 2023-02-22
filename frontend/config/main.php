@@ -22,7 +22,7 @@ return [
             'scanRootParentDirectory' => true, // Whether scan the defined `root` parent directory, or the folder itself.
             // IMPORTANT: for detailed instructions read the chapter about root configuration.
             'layout' => 'language',         // Name of the used layout. If using own layout use 'null'.
-            'allowedIPs' => ['127.0.0.1'],  // IP addresses from which the translation interface is accessible.
+//            'allowedIPs' => ['127.0.0.1'],  // IP addresses from which the translation interface is accessible.
             'roles' => ['@'],               // For setting access levels to the translating interface.
             'tmpDir' => '@runtime',         // Writable directory for the client-side temporary language files.
             // IMPORTANT: must be identical for all applications (the AssetsManager serves the JavaScript files containing language elements from this directory).
@@ -101,7 +101,7 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
-            'name' => 'zelal-frontend',
+            'name' => 'denis-frontend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

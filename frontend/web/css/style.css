@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-
 body {
-    font-family: 'Proxima Nova Rg';
+    font-family: 'Inter';
+    /*overflow: hidden;*/
 }
 
 html {
@@ -12,13 +11,27 @@ html {
     color: #506B84;
 }
 
+.main_btn {
+    color: white;
+    background: #0B378C;
+    border: 1px solid rgba(80, 107, 132, 0.1);
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
 .f-16 {
     font-size: 16px;
     font-weight: 600;
 }
 
-.f-20 {
+.f-24 {
+    font-weight: 300;
+    font-size: 24px;
+}
 
+.f-40 {
+    font-weight: 600;
+    font-size: 40px;
 }
 
 /*header*/
@@ -48,10 +61,194 @@ html {
     object-fit: cover;
 }
 
+.banner_context {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    color: white;
+    text-align: center;
+    font-weight: 700;
+}
+
+.banner_context_title {
+    font-size: 50px;
+}
+
+.banner_context_text {
+    font-size: 20px;
+}
+
 /*searching area*/
 .searching_tools .dropdown {
     box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background: #FFFFFF;
     border: 1px solid rgba(80, 107, 132, 0.1);
+}
+
+.main_banner {
+    height: 85vh;
+}
+
+.searching_tools_dropdown {
+    background: #FFFFFF;
+    border: 1px solid rgba(80, 107, 132, 0.1);
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.searching_tools_dropdown button {
+    padding: 10px 0;
+}
+
+.checkbox_block_container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    font-weight: 600;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox_block_container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+
+.checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    /*background-color: #eee;*/
+    border: 2px solid rgba(11, 55, 140, 0.54);;
+    border-radius: 2px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox_block_container:hover input ~ .checkmark {
+    /*background: rgba(11, 55, 140, 0.54);*/
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox_block_container input:checked ~ .checkmark {
+    /*background: rgba(11, 55, 140, 0.54);*/
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox_block_container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox_block_container .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #506B84;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkbox_block {
+    margin: 0 15px 15px 0;
+}
+
+.price_input {
+    padding: 25px;
+    border: 1px solid rgba(80, 107, 132, 0.1);
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.price_input_label {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#chartdiv {
+    width: 100%;
+    height: 500px;
+}
+
+/*Advantage*/
+.advantage {
+    background-size: cover;
+    height: 60vh;
+    background: url(../uploads/banners/advantage.png)
+}
+
+.advantage_block_title {
+    padding-top: 3%;
+    color: white;
+    font-size: 40px;
+}
+
+.advantage_block_text {
+    color: white;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+/*products*/
+.products {
+    background: #F8F9FC;
+}
+
+.title_product {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.product_card {
+    border: 1px solid #E5E8EB;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+.price_product {
+    /*white-space: pre;*/
+    font-size: 18px;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.tag_item {
+    font-weight: 500;
+    font-size: 10px;
+    color: white;
+    background: #FD8B19;
+    border-radius: 3px;
+    padding: 3px 10px;
+
+}
+
+.tag_item {
+    margin: 0 10px 10px 0;
+}
+
+.product_footer__room_size {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 9px;
 }
