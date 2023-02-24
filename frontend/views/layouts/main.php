@@ -4,13 +4,14 @@
 
 /** @var string $content */
 
-use common\models\Settings;
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
 use yii\bootstrap4\Breadcrumbs;
 
 
 AppAsset::register($this);
+//dd(\Yii::$app->language='en');
+//dd(\Yii::$app->language);
 
 ?>
 <?php $this->beginPage() ?>
@@ -21,7 +22,7 @@ AppAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="title" content="Denis">
         <meta name="Description"
-              content="ZELAL TEXTILE PRODUCTS OF WORLD QUALITY">
+              content="Denis Homes">
         <?php $this->registerCsrfMetaTags() ?>
         <title>Denis</title>
         <?php $this->head() ?>

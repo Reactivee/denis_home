@@ -1,13 +1,15 @@
-<header class="header ">
+<header class="header  main_back">
     <ul class="nav d-flex justify-content-end container">
-        <li class="nav-item">
-            <a class="nav-link color_gray f-16" href="tel:+905340526236">+90 534 052 62 36</a>
+        <li class="nav-item header_social icon_little d-flex align-items-center">
+            <i class="fab fa-twitter "></i>
+            <a class="nav-link color_white f-16 pl-0" href="tel:+905340526236">+90 534 052 62 36</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link f-16 color_gray" href="#">USD</a>
+        <li class="nav-item icon_little header_social d-flex align-items-center">
+            <i class="fab fa-twitter "></i>
+            <a class="nav-link f-16 color_white pl-0" href="#">USD</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link f-16 color_gray" href="#">Русский</a>
+        <li class="nav-item header_social">
+            <a class="nav-link f-16 color_white" href="#">Русский</a>
         </li>
     </ul>
 
@@ -23,7 +25,7 @@
             </button>
 
             <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav main_nav">
                     <li class="nav-item active">
                         <a class="nav-link color_gray" href="#">Главная <span class="sr-only">(current)</span></a>
                     </li>
@@ -31,16 +33,11 @@
                         <a class="nav-link color_gray" href="#">О нас</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle color_gray" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link  color_gray" href="#" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Наши услуги
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link disabled color_gray" href="#">Недвижимость</a>

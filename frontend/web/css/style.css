@@ -3,14 +3,35 @@ body {
     /*overflow: hidden;*/
 }
 
-html {
 
+.container {
+    max-width: 1380px;
 }
 
 .color_gray {
     color: #506B84;
 }
 
+.color_white {
+    color: white !important;
+}
+
+.main_back {
+    background: #0B378C;
+}
+.icon_little i{
+    margin-right: 15px;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-size: 13px;
+    justify-content: center;
+    color: white;
+    border: 1px solid white;
+}
 .main_btn {
     color: white;
     background: #0B378C;
@@ -38,12 +59,18 @@ html {
 .navbar-collapse {
     flex-grow: 0 !important;
 }
-
+.header .header_social{
+    margin-left: 30px;
+}
 .navbar-nav a {
     font-size: 17px;
-    color: #506B84 !important;
+
     font-weight: 600;
     word-break: normal;
+}
+
+.main_nav a {
+    color: #506B84 !important;
 }
 
 .navbar-nav .nav-item {
@@ -194,7 +221,9 @@ html {
 .advantage {
     background-size: cover;
     height: 60vh;
-    background: url(../uploads/banners/advantage.png)
+    background: url(../uploads/banners/advantage.png);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .advantage_block_title {
@@ -220,8 +249,9 @@ html {
 }
 
 .product_card {
-    border: 1px solid #E5E8EB;
+    /*border: 1px solid #E5E8EB;*/
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.15);
+    background: white;
 }
 
 .price_product {
@@ -251,4 +281,155 @@ img {
     font-weight: 500;
     font-size: 13px;
     margin-bottom: 9px;
+}
+
+.ribbon {
+    font-weight: 500;
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 20px;;
+    color: white;
+    padding: 3px 9px;
+    background: #43D56C;
+    /*border: 1px solid rgba(80, 107, 132, 0.1);*/
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+/*end product*/
+
+
+/*Type bulding*/
+.type_build {
+    /*padding-bottom: 50px;*/
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../uploads/banners/type.png);
+}
+
+.type_buildings_item {
+    margin-top: 50px;
+    width: 100%;
+    /*background: #FFFFFF;*/
+    border: 1px solid #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.type_buildings_item {
+    color: white;
+    overflow: hidden;
+    transition: .5s all;
+}
+
+.type_buildings_item i {
+    font-size: 100px;
+}
+
+.type_buildings_item_text span {
+    font-weight: 600;
+    font-size: 26px;
+    color: white;
+}
+
+.type_buildings_item:hover {
+    background: white;
+    color: black;
+}
+
+.type_buildings_item:hover .type_buildings_item_text span {
+
+    color: black;
+}
+
+.card_text {
+    position: absolute;
+    width: 100%;
+    /*left: 50%;*/
+    bottom: 38px;
+    color: white;
+    /*transform: translate(-50px,-50%);*/
+}
+
+.card_text:after {
+    /*content: "";*/
+    /*position: absolute;*/
+    right: 0;
+    bottom: -50px;
+    background: red;
+    height: 5px;
+    width: 100%;
+    transform: rotate(90deg);
+}
+
+.form_block {
+    color: white;
+    background: #0B378C;
+}
+
+.form_block i {
+    margin-right: 20px;
+    font-size: 40px;
+}
+
+/*Our team*/
+.team_card {
+    margin: 0 40px;
+}
+
+.team_card_img {
+    border: 3px solid #FD8B19;
+    border-radius: 50%;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+.team_card_img img {
+    height: 100%;
+    transform: scale(1.2);
+}
+
+.team_card_phone,
+.team_card_phone a {
+    font-weight: 600;
+    text-decoration: none;
+    color: #FD8B19;
+}
+
+.team_card_phone i {
+    border: 1px solid #FD8B19;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.card_social i {
+    margin-right: 15px;
+
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: center;
+    color: white;
+    border: 1px solid white;
+
+}
+
+.team_card_social i {
+    margin-top: 10px;
+    border: 1px solid #FD8B19;
+    color: #FD8B19;
+}
+
+/*Footer*/
+.footer {
+    margin-top: 60px;
+    background: #0B378C;
 }

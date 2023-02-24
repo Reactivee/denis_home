@@ -17,13 +17,10 @@ var swiper = new Swiper(".banner", {
 
 /*Chart price*/
 
-$(document).on('ready', function () {
-    // INITIALIZATION OF ION RANGE SLIDER
+
     // =======================================================
-    $('.js-ion-range-slider').each(function () {
-        $.HSCore.components.HSIonRangeSlider.init($(this));
-    });
-});
+
+
 <!-- JS Plugins Init. -->
 $(".js-ion-range-slider").ionRangeSlider({
     skin: "round",
@@ -34,10 +31,10 @@ $(".js-ion-range-slider").ionRangeSlider({
     to: 1000,
     grid: false,
     grid_margin: true,
-    grid_snap: false,
-    result_min_target_el: "#rangeSliderExampleDouble4MinResult",
-    result_max_target_el: "#rangeSliderExampleDouble4MaxResult",
-    foreground_target_el: "#foregroundBarChartDoubleResult",
+    grid_snap: true,
+    // result_min_target_el: "#rangeSliderExampleDouble4MinResult",
+    // result_max_target_el: "#rangeSliderExampleDouble4MaxResult",
+    foreground_target_el: "#foregroundBarChartSingleResult",
 
     onStart: function (data) {
         $("#pricemin").val(data.from);
@@ -85,3 +82,23 @@ $(".js-ion-range-slider").ionRangeSlider({
     }
 });
 
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});

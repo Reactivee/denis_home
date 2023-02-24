@@ -56,15 +56,15 @@ return [
     'components' => [
         'languagepicker' => [
             'class' => 'lajax\languagepicker\Component',        // List of available languages (icons and text)
-            'languages' => ['en' => 'English', 'uz' => 'Uzbek', 'ru' => 'Русский'],
+            'languages' => [ 'uz' => 'Uzbek', 'ru' => 'Русский','en' => 'English'],
             'cookieName' => 'language',                         // Name of the cookie.
             'expireDays' => 64,                                 // The expiration time of the cookie is 64 days.
             'callback' => function () {
-                if (!\Yii::$app->user->isGuest) {
+//                if (!\Yii::$app->user->isGuest) {
                     $user = \Yii::$app->user->identity;
                     $user->language = \Yii::$app->language;
                     $user->save();
-                }
+//                }
             }
         ],
         'i18n' => [
@@ -121,7 +121,7 @@ return [
 //            'enableDefaultLanguageUrlCode' => true,
 //            'enableLanguagePersistence' => false,
             'languages' => ['uz', 'ru', 'en'],
-            'enableLanguageDetection' => false,
+            'enableLanguageDetection' => true,
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,

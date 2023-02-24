@@ -251,14 +251,7 @@ $this->title = 'Main page';
 
                         <!-- Range Slider -->
                         <input class="js-ion-range-slider" type="text"
-                               data-hs-ion-range-slider-options='{
-                                 "extra_classes": "range-slider-custom",
-                                 "min": 0,
-                                 "max": 1000,
-                                 "from": 500,
-                                 "result_min_target_el": "#rangeSliderExample4MinResult",
-                                 "foreground_target_el": "#foregroundBarChartSingleResult"
-                               }'>
+                        >
 
                         <!-- End Range Slider -->
 
@@ -268,47 +261,59 @@ $this->title = 'Main page';
                     <button class="btn  main_btn px-5">Найти недвижимость</button>
                 </div>
             </form>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
 
     </section>
     <section class="advantage">
         <div class="advantage_block text-center">
-            <h3 class="advantage_block_title">
-                Наши преимущества
-            </h3>
-            <h6 class="advantage_block_text">
-                Lorem ipsum dolor amet, consectetur adi scing elit. Sed ut purus eget nunc
-            </h6>
+            <div class="main_title">
+                <div class="products_title advantage_block_title f-40 text-center"> Наши преимущества</div>
+                <div class="products_text advantage_block_text f-24 text-center">Более 100 объектов с гарантией
+                    получение
+                    гражданство
+                </div>
+            </div>
+
         </div>
     </section>
     <section class="products">
         <div class="container py-4">
-            <div class="products_title color_gray f-40 text-center">Популярные жилые комплексы и аппартаменты</div>
-            <div class="products_text color_gray f-24 text-center">Более 100 объектов с гарантией получение
-                гражданство
+            <div class="main_title">
+                <div class="products_title color_gray f-40 text-center">Популярные жилые комплексы и аппартаменты</div>
+                <div class="products_text color_gray f-24 text-center">Более 100 объектов с гарантией получение
+                    гражданство
+                </div>
             </div>
             <div class="row mt-5">
                 <div class="col-md-4">
-                    <div class="product_card">
-                        <div class="img_wrapper">
-                            <img class="w-100" src="/uploads/cards/card1.png" alt="card">
+                    <div class="product_card  overflow-hidden">
+
+                        <div class="img_wrapper p-0 m-0 position-relative overflow-hidden">
+                            <img class="w-100  overflow-hidden h-100" src="/uploads/cards/card1.png" alt="card">
+                            <div class="ribbon">
+                                <span>Готов к сдаче</span>
+                            </div>
                         </div>
                         <div class="context_wrapper bg-white p-3">
                             <div class="row">
                                 <div class="col-md-7">
                                     <h5 class="title_product color_gray">Жилой комплекс ULTIPLUS RESIDENCE</h5>
-                                    <div class="all_city">
-                                        <span class="city color_gray">Kadiköy</span>
-                                        <span class="city color_gray">Kadiköy</span>
-                                        <span class="city color_gray">Kadiköy</span>
-                                    </div>
                                 </div>
+
                                 <div class="col-md-5">
                                     <div class="text-right color_gray"> от <span
                                                 class="price_product  font-weight-bolder">130 500$</span></div>
                                 </div>
-                            </div>
 
+                            </div>
+                            <div class="all_city">
+                                <span class="city color_gray">Kadiköy</span>
+                                <span class="city color_gray">Kadiköy</span>
+                                <span class="city color_gray">Kadiköy</span>
+                            </div>
                             <div class="tags d-flex flex-wrap mt-2">
                                 <div class="tag_item">
                                     <i class="fas fa-history mr-1"></i>
@@ -354,15 +359,180 @@ $this->title = 'Main page';
                                     <div class="footer_item">от 131 200$</div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
+                <!--End product card-->
+            </div>
+            <div class="text-center my-5 ">
+                <button class="btn  main_btn px-5">Смотреть все объекты</button>
             </div>
         </div>
     </section>
+
+    <section class="advantage type_build">
+        <div class="advantage_block text-center pt-5">
+            <div class="main_title">
+                <div class="products_title color_white f-40 text-center">Популярные жилые комплексы и аппартаменты</div>
+                <div class="products_text color_white f-24 text-center">Более 100 объектов с гарантией получение
+                    гражданство
+                </div>
+            </div>
+        </div>
+        <div class="type_buildings">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="type_buildings_item">
+                            <i class="fas fa-building"></i>
+                            <div class="type_buildings_item_text">
+                                <span>Коммерческая недвижимость</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="type_buildings_item">
+                            <i class="fas fa-building"></i>
+                            <div class="type_buildings_item_text">
+                                <span>Коммерческая недвижимость</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="type_buildings_item">
+                            <i class="fas fa-building"></i>
+                            <div class="type_buildings_item_text">
+                                <span>Коммерческая недвижимость</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="type_buildings_item">
+                            <i class="fas fa-building"></i>
+                            <div class="type_buildings_item_text">
+                                <span>Коммерческая недвижимость</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5">
+
+        <div class="container mt-5">
+            <div class="main_title mt-4">
+                <div class="products_title color_gray f-40 text-center">Мы работаем во всех популярных городах Турции</div>
+                <div class="products_text color_gray f-24 text-center">Более 100 объектов с гарантией получение гражданство
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="city_cards position-relative  overflow-hidden d-flex justify-content-center align-items-end text-center">
+                        <div class="city_cards_img">
+                            <img class="100" src="../uploads/cards/coastal-city-seen-from-above.png" alt="asd">
+                        </div>
+                        <div class="card_text overflow-hidden">
+                            <h4>Стамбул</h4>
+                            <p>45 объектов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="form">
+        <div class="form_block d-flex align-items-center py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-envelope"></i>
+                            <div class="form_text">
+                                <p class="p-0 m-0">Будем на связи!</p>
+                                <span>Подпишитесь, чтобы быть в курсе свежих новостей и интересных предложений</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" placeholder="ведите Ваш e-mail адрес">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="our_team">
+        <div class="container">
+
+        <div class="main_title mt-4">
+            <div class="products_title color_gray f-40 text-center">Команда экспертов в сфере недвижимости</div>
+            <div class="products_text color_gray f-24 text-center">Наши эксперты с радостью помогут Вам подобрать
+                оптимальный вариант, исходя из Ваших целе
+            </div>
+        </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="team_card text-center">
+                        <div class="team_card_img">
+                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                        </div>
+                        <div class="team_card_content mt-4">
+                            <div class="team_card_title color_gray font-weight-bold f-24">
+                                Гюлан Дениз
+                            </div>
+                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                            <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                <i class="fab fa-twitter"></i>
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="team_card text-center">
+                        <div class="team_card_img">
+                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                        </div>
+                        <div class="team_card_content mt-4">
+                            <div class="team_card_title color_gray font-weight-bold f-24">
+                                Гюлан Дениз
+                            </div>
+                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                            <div class="team_card_social d-flex align-items-center card_social  justify-content-center">
+                                <i class="fab fa-twitter"></i>
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <div class="col-md-4">
+                    <div class="team_card text-center">
+                        <div class="team_card_img">
+                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                        </div>
+                        <div class="team_card_content mt-4">
+                            <div class="team_card_title color_gray font-weight-bold f-24">
+                                Гюлан Дениз
+                            </div>
+                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                            <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                <i class="fab fa-twitter"></i>
+                                <i class="fab fa-facebook-f"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 <?php
 $script = <<<JS
 
