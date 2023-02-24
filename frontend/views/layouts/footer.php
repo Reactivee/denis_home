@@ -47,9 +47,9 @@ use yii\helpers\Html;
                         <a class="nav-link disabled color_white" href="#">FAQ</a>
                     </li>
                 </ul>
-                <div class="row align-items-center mt-4">
+                <div class="row align-items-start justify-content-between mt-4">
                     <div class="col-md-4">
-                        <div class="footer_address card_social  d-flex align-items-center  color_white">
+                        <div class="footer_address card_social  d-flex align-items-start justify-content-center  color_white">
                             <i class="fab fa-twitter"></i>
                             <span>
                                       Mansuroğlu mah. 1593/1 sokak Lider Centr B blok kat:3 no:23, Bayraklı, Izmir
@@ -57,14 +57,14 @@ use yii\helpers\Html;
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="footer_adress">
-                            <div class=" d-flex align-items-center card_social mt-3"><i
-                                        class="fas fa-phone-alt mr-3  "></i>
+                        <div class="footer_adress  d-flex align-items-start justify-content-center">
+                            <div class=" d-flex align-items-start card_social  justify-content-center">
+                                <i class="fas fa-phone-alt mr-3"></i>
                                 <a class="color_white" href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="email card_social color_white d-flex align-items-center ">
+                        <div class="email card_social color_white d-flex align-items-start justify-content-center">
                             <i class="fab fa-twitter "></i>
                             info@denizhomes.com
                         </div>
