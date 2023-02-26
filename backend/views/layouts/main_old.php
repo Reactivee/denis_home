@@ -1,3 +1,4 @@
+
 <?php
 
 /* @var $this View */
@@ -9,7 +10,7 @@ use backend\extensions\adminlte\components\AdminLteHelper;
 use yii\web\View;
 
 AppAsset::register($this);
-
+//dd('sd');
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

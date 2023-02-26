@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\TopBanner;
+use common\models\TypeFlat;
 
 /**
- * TopBannerSearch represents the model behind the search form of `common\models\TopBanner`.
+ * TypeFlatSearch represents the model behind the search form of `common\models\TypeFlat`.
  */
-class TopBannerSearch extends TopBanner
+class TypeFlatSearch extends TypeFlat
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TopBannerSearch extends TopBanner
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['title_tr', 'title_ru', 'title_en', 'text_uz', 'text_ru', 'text_en', 'link', 'img_path'], 'safe'],
+            [['id'], 'integer'],
+            [['img', 'link', 'icon', 'title_tr', 'title_ru', 'title_en', 'text_en', 'text_tr', 'text_ru'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TopBannerSearch extends TopBanner
      */
     public function search($params)
     {
-        $query = TopBanner::find();
+        $query = TypeFlat::find();
 
         // add conditions that should always apply here
 
@@ -59,17 +59,17 @@ class TopBannerSearch extends TopBanner
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'title_tr', $this->title_tr])
+        $query->andFilterWhere(['like', 'img', $this->img])
+            ->andFilterWhere(['like', 'link', $this->link])
+            ->andFilterWhere(['like', 'icon', $this->icon])
+            ->andFilterWhere(['like', 'title_tr', $this->title_tr])
             ->andFilterWhere(['like', 'title_ru', $this->title_ru])
             ->andFilterWhere(['like', 'title_en', $this->title_en])
-            ->andFilterWhere(['like', 'text_tr', $this->text_tr])
-            ->andFilterWhere(['like', 'text_ru', $this->text_ru])
             ->andFilterWhere(['like', 'text_en', $this->text_en])
-            ->andFilterWhere(['like', 'link', $this->link])
-            ->andFilterWhere(['like', 'img_path', $this->img_path]);
+            ->andFilterWhere(['like', 'text_tr', $this->text_tr])
+            ->andFilterWhere(['like', 'text_ru', $this->text_ru]);
 
         return $dataProvider;
     }
