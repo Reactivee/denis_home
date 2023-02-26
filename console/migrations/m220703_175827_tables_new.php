@@ -18,9 +18,9 @@ class m220703_175827_tables_new extends Migration
 //            'category_id' => $this->integer()
 //        ]);
 
-        $this->addColumn('sorts', 'type', $this->string());
-        $this->addColumn('sorts', 'status', $this->string());
-        $this->addColumn('product', 'status', $this->string());
+//        $this->addColumn('sorts', 'type', $this->string());
+//        $this->addColumn('sorts', 'status', $this->string());
+//        $this->addColumn('product', 'status', $this->string());
 
     }
 
