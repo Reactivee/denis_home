@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var backend\models\sliders\Sliders $model */
+/** @var common\models\Cities $model */
 
-$this->title = 'Create Sliders';
-$this->params['breadcrumbs'][] = ['label' => 'Sliders', 'url' => ['index']];
+$this->title = 'Create Cities';
+$this->params['breadcrumbs'][] = ['label' => 'Cities', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sliders-create">
+<div class="cities-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

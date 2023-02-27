@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'img',
             'link',
             'icon',
             'title_tr',
@@ -39,6 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'text_en:ntext',
             'text_tr:ntext',
             'text_ru:ntext',
+            [
+                'attribute' => 'img',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->img)
+                        return Html::img($model->img, ['alt' => 'My logo', 'width' => '200px']);
+                }
+            ]
         ],
     ]) ?>
 

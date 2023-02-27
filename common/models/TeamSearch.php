@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\employee;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\employee\Employees;
+use common\models\Team;
 
 /**
- * EmployeesSearch represents the model behind the search form of `backend\models\employee\Employees`.
+ * TeamSearch represents the model behind the search form of `common\models\Team`.
  */
-class EmployeesSearch extends Employees
+class TeamSearch extends Team
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class EmployeesSearch extends Employees
     public function rules()
     {
         return [
-            [['id', 'job_id', 'created_at', 'updated_at'], 'integer'],
-            [['full_name', 'phone_number', 'telegram', 'facebook', 'twitter', 'instagram', 'image'], 'safe'],
+            [['id', 'updated_at', 'created_at'], 'integer'],
+            [['name_tr', 'name_en', 'name_ru', 'prof_ru', 'prof_tr', 'prof_en', 'phone', 'email', 'google', 'facebook', 'instagram', 'telegram'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EmployeesSearch extends Employees
      */
     public function search($params)
     {
-        $query = Employees::find();
+        $query = Team::find();
 
         // add conditions that should always apply here
 
@@ -59,18 +59,22 @@ class EmployeesSearch extends Employees
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'job_id' => $this->job_id,
-            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
         ]);
 
-        $query->andFilterWhere(['like', 'full_name', $this->full_name])
-            ->andFilterWhere(['like', 'phone_number', $this->phone_number])
-            ->andFilterWhere(['like', 'telegram', $this->telegram])
+        $query->andFilterWhere(['like', 'name_tr', $this->name_tr])
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'name_ru', $this->name_ru])
+            ->andFilterWhere(['like', 'prof_ru', $this->prof_ru])
+            ->andFilterWhere(['like', 'prof_tr', $this->prof_tr])
+            ->andFilterWhere(['like', 'prof_en', $this->prof_en])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'google', $this->google])
             ->andFilterWhere(['like', 'facebook', $this->facebook])
-            ->andFilterWhere(['like', 'twitter', $this->twitter])
             ->andFilterWhere(['like', 'instagram', $this->instagram])
-            ->andFilterWhere(['like', 'image', $this->image]);
+            ->andFilterWhere(['like', 'telegram', $this->telegram]);
 
         return $dataProvider;
     }

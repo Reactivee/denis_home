@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\employee;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\employee\EmployeeJobs;
+use common\models\Cities;
 
 /**
- * EmployeeJobsSearch represents the model behind the search form of `backend\models\employee\EmployeeJobs`.
+ * CitiesSearch represents the model behind the search form of `common\models\Cities`.
  */
-class EmployeeJobsSearch extends EmployeeJobs
+class CitiesSearch extends Cities
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class EmployeeJobsSearch extends EmployeeJobs
     {
         return [
             [['id'], 'integer'],
-            [['job_name_ru', 'job_name_en', 'job_name_tr'], 'safe'],
+            [['title_tr', 'title_ru', 'title_en', 'text_en', 'text_tr', 'text_ru', 'img', 'link'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EmployeeJobsSearch extends EmployeeJobs
      */
     public function search($params)
     {
-        $query = EmployeeJobs::find();
+        $query = Cities::find();
 
         // add conditions that should always apply here
 
@@ -61,9 +61,14 @@ class EmployeeJobsSearch extends EmployeeJobs
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'job_name_ru', $this->job_name_ru])
-            ->andFilterWhere(['like', 'job_name_en', $this->job_name_en])
-            ->andFilterWhere(['like', 'job_name_tr', $this->job_name_tr]);
+        $query->andFilterWhere(['like', 'title_tr', $this->title_tr])
+            ->andFilterWhere(['like', 'title_ru', $this->title_ru])
+            ->andFilterWhere(['like', 'title_en', $this->title_en])
+            ->andFilterWhere(['like', 'text_en', $this->text_en])
+            ->andFilterWhere(['like', 'text_tr', $this->text_tr])
+            ->andFilterWhere(['like', 'text_ru', $this->text_ru])
+            ->andFilterWhere(['like', 'img', $this->img])
+            ->andFilterWhere(['like', 'link', $this->link]);
 
         return $dataProvider;
     }

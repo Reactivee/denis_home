@@ -39,6 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'text_ru:ntext',
             //'img',
             [
+                    'attribute' => 'img',
+                    'format' => 'raw',
+                'value' => function(Advantages $model)
+                {
+                    if ($model->img)
+                        return Html::img($model->img, ['alt' => 'My logo', 'width' => '200px']);
+                }
+            ],
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Advantages $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);

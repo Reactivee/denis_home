@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\Advantages;
 use common\models\AdvantagesSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AdvantagesController implements the CRUD actions for Advantages model.
@@ -70,7 +72,25 @@ class AdvantagesController extends Controller
         $model = new Advantages();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+
+                $img = $model->img = UploadedFile::getInstance($model, 'img');
+                if ($img) {
+                    $folder = Yii::getAlias('@frontend') . '/web/uploads/advantages/';
+                    if (!file_exists($folder)) {
+                        mkdir($folder, 0777, true);
+                    }
+                    $generateName = Yii::$app->security->generateRandomString();
+                    $path = $folder . $generateName . '.' . $img->extension;
+                    $img->saveAs($path);
+                    $path = '/frontend/web/uploads/advantages/' . $generateName . '.' . $img->extension;
+                    $model->img = $path;
+                }
+
+                if ($model['oldAttributes']['img'] && !$img) {
+                    $model->img = $model['oldAttributes']['img'];
+                }
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -93,7 +113,28 @@ class AdvantagesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+
+            $img = UploadedFile::getInstance($model, 'img');
+            //var_dump($img);die();
+            if ($img) {
+                $folder = Yii::getAlias('@frontend') . '/web/uploads/advantages/';
+                if (!file_exists($folder)) {
+                    mkdir($folder, 0777, true);
+                }
+                $generateName = Yii::$app->security->generateRandomString();
+                $path = $folder . $generateName . '.' . $img->extension;
+                $img->saveAs($path);
+                $path = '/frontend/web/uploads/advantages/' . $generateName . '.' . $img->extension;
+                $model->img = $path;
+            }
+
+            if ($model['oldAttributes']['img'] && !$img) {
+                $model->img = $model['oldAttributes']['img'];
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

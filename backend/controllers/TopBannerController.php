@@ -129,6 +129,10 @@ class TopBannerController extends Controller
                 $path = '/frontend/web/uploads/banners/' . $generateName . '.' . $img->extension;
                 $model->img_path = $path;
             }
+
+            if ($model['oldAttributes']['img_path'] && !$img) {
+                $model->img_path = $model['oldAttributes']['img_path'];
+            }
             $model->save();
             \Yii::$app->session->addFlash('success','success');
             return $this->redirect(['view', 'id' => $model->id]);
