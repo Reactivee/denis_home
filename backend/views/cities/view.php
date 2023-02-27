@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\employee\Employees $model */
+/** @var common\models\Cities $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Employees', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Cities', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="employees-view">
+<div class="cities-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,16 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'job_id',
-            'full_name',
-            'phone_number',
-            'telegram',
-            'facebook',
-            'twitter',
-            'instagram',
-            'created_at',
-            'updated_at',
-            'image',
+            'title_tr',
+            'title_ru',
+            'title_en',
+            'text_en:ntext',
+            'text_tr:ntext',
+            'text_ru:ntext',
+            'link',
+            //'img',
+            [
+                'attribute' => 'img',
+                'format' => 'html',
+                'value' => function ($model) {
+                    if ($model->img)
+                        return Html::img($model->img, ['alt' => 'My logo', 'width' => '200px']);
+                }
+            ]
         ],
     ]) ?>
 
