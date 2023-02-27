@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\TypeFlat $model */
+/** @var common\models\Team $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Type Flats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Teams', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="type-flat-view">
+<div class="team-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,14 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'link',
-            'icon',
-            'title_tr',
-            'title_ru',
-            'title_en',
-            'text_en:ntext',
-            'text_tr:ntext',
-            'text_ru:ntext',
+            'name_tr',
+            'name_en',
+            'name_ru',
+            'prof_ru',
+            'prof_tr',
+            'prof_en',
+            'phone',
+            'email:email',
+            'google',
+            'facebook',
+            'instagram',
+            'telegram',
+            'updated_at',
+            'created_at',
             [
                 'attribute' => 'img',
                 'format' => 'html',

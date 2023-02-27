@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\TypeFlat $model */
+/** @var common\models\Cities $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Type Flats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Cities', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="type-flat-view">
+<div class="cities-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'link',
-            'icon',
             'title_tr',
             'title_ru',
             'title_en',
             'text_en:ntext',
             'text_tr:ntext',
             'text_ru:ntext',
+            'link',
+            //'img',
             [
                 'attribute' => 'img',
                 'format' => 'html',
