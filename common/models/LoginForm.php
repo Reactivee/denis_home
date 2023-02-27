@@ -1,4 +1,5 @@
 <?php
+
 namespace common\models;
 
 use Yii;
@@ -25,7 +26,7 @@ class LoginForm extends Model
             // username and password are both required
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
-            //['rememberMe', 'boolean'],
+            ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -55,9 +56,6 @@ class LoginForm extends Model
      */
     public function login()
     {
-//        if ($this->username !== 'Jahongir' && $this->username !== 'daho')
-//            return false;
-
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }

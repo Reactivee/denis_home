@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\TopBanner;
-use common\models\TopBannerSearch;
-use Yii;
+use common\models\TypeFlat;
+use common\models\TypeFlatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * TopBannerController implements the CRUD actions for TopBanner model.
+ * TypeFlatController implements the CRUD actions for TypeFlat model.
  */
-class TopBannerController extends Controller
+class TypeFlatController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,13 +32,13 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Lists all TopBanner models.
+     * Lists all TypeFlat models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new TopBannerSearch();
+        $searchModel = new TypeFlatSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +48,7 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Displays a single TopBanner model.
+     * Displays a single TypeFlat model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,36 +61,16 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Creates a new TopBanner model.
+     * Creates a new TypeFlat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new TopBanner();
+        $model = new TypeFlat();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-//                dd($model);
-                $img = $model->img_path = UploadedFile::getInstance($model, 'img_path');
-                if ($img) {
-                    $folder = Yii::getAlias('@frontend') . '/web/uploads/banners/';
-                    if (!file_exists($folder)) {
-                        mkdir($folder, 0777, true);
-                    }
-                    $generateName = Yii::$app->security->generateRandomString();
-                    $path = $folder . $generateName . '.' . $img->extension;
-                    $img->saveAs($path);
-                    $path = '/frontend/web/uploads/banners/' . $generateName . '.' . $img->extension;
-                    $model->img_path = $path;
-                }
-
-                if ($model['oldAttributes']['img_path'] && !$img) {
-                    $model->img_path = $model['oldAttributes']['img_path'];
-                }
-
-                $model->save();
-                \Yii::$app->session->addFlash('success','success');
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -105,7 +83,7 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Updates an existing TopBanner model.
+     * Updates an existing TypeFlat model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -115,22 +93,7 @@ class TopBannerController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post())) {
-
-            $img = $model->img_path = UploadedFile::getInstance($model, 'img_path');
-            if ($img) {
-                $folder = Yii::getAlias('@frontend') . '/web/uploads/banners/';
-                if (!file_exists($folder)) {
-                    mkdir($folder, 0777, true);
-                }
-                $generateName = Yii::$app->security->generateRandomString();
-                $path = $folder . $generateName . '.' . $img->extension;
-                $img->saveAs($path);
-                $path = '/frontend/web/uploads/banners/' . $generateName . '.' . $img->extension;
-                $model->img_path = $path;
-            }
-            $model->save();
-            \Yii::$app->session->addFlash('success','success');
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -140,7 +103,7 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Deletes an existing TopBanner model.
+     * Deletes an existing TypeFlat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -154,15 +117,15 @@ class TopBannerController extends Controller
     }
 
     /**
-     * Finds the TopBanner model based on its primary key value.
+     * Finds the TypeFlat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return TopBanner the loaded model
+     * @return TypeFlat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TopBanner::findOne(['id' => $id])) !== null) {
+        if (($model = TypeFlat::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

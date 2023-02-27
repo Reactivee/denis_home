@@ -13,7 +13,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
 \Yii::$app->language = 'ru-RU';
 ?>
 <?php $this->beginPage(); ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -72,103 +72,15 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
 //                                    ["label" => "Home", "url" => "/admin", "icon" => "home"],
                                     ["label" => "Top Banner", "url" => ["/top-banner"], "icon" => "file-image-o"],
                                     ["label" => "Advantages", "url" => ["/advantages"], "icon" => "th-large"],
-                                    ["label" => "Advantages Icons", "url" => ["/advantages-icons"], "icon" => "th"],
-                                    ["label" => "Category", "url" => ["/category"], "icon" => "folder"],
-                                    ["label" => "Kumans", "url" => "#", "icon" => "folder",
-                                        "items" => [
-                                            ["label" => "Kumans", "url" => ["/materials"]],
-                                            ["label" => "Options", "url" => ["/materials-options"]],
-                                        ],
-                                    ],
-                                    ["label" => "Sorts", "url" => ["/sorts"], "icon" => "sort-alpha-desc"],
-                                    ["label" => "Application", "url" => ["/application"], "icon" => "comment-o"],
-                                    ["label" => "News", "url" => ["/posts"], "icon" => "comment-o"],
-                                    ["label" => "Products", "url" => '#', "icon" => "shopping-cart",
-
-                                        "items" => [
-                                            ["label" => "Products", "url" => ["/product"]],
-                                            ["label" => "Elements", "url" => ["/element"]],
-                                            ["label" => "Options", "url" => ["/options"]],
-                                            ["label" => "Options value", "url" => ["/options-value"]],
-                                            ["label" => "Option value product", "url" => ["/options-product"]],
-                                        ],
-
-                                    ],
-                                    ["label" => "Address", "url" => ["/address"], "icon" => "building"],
+                                    ["label" => "Type Flats", "url" => ["/type-flat"], "icon" => "th-large"],
                                     ["label" => "About", "url" => "#", "icon" => "files-o",
-
                                         "items" => [
                                             ["label" => "About", "url" => ["/about"]],
                                             ["label" => "About in page", "url" => ["/about-in"]],
                                             ["label" => "About in set", "url" => ["about-in/about-settings"]],
-
                                         ],
                                     ],
-                                    ["label" => "Process", "url" => ["/process"], "icon" => "files-o",],
 
-                                    ["label" => "Gallery", "url" => ["/gallery"], "icon" => "film"],
-                                    ["label" => "Catalog", "url" => ["/catalog"], "icon" => "film"],
-
-                                    ["label" => "Videos", "url" => ["/videos"], "icon" => "youtube-play"],
-                                    ["label" => "Site Settings", "url" => ["/settings"], "icon" => "gavel"],
-//                                    [
-//                                        "label" => "Widgets",
-//                                        "icon" => "th",
-//                                        "url" => "#",
-//                                        "items" => [
-//                                            ["label" => "Menu", "url" => ["site/menu"]],
-//                                            ["label" => "Panel", "url" => ["site/panel"]],
-//                                        ],
-//                                    ],
-//                                    [
-//                                        "label" => "Badges",
-//                                        "url" => "#",
-//                                        "icon" => "table",
-//                                        "items" => [
-//                                            [
-//                                                "label" => "Default",
-//                                                "url" => "#",
-//                                                "badge" => "123",
-//                                            ],
-//                                            [
-//                                                "label" => "Success",
-//                                                "url" => "#",
-//                                                "badge" => "new",
-//                                                "badgeOptions" => ["class" => "label-success"],
-//                                            ],
-//                                            [
-//                                                "label" => "Danger",
-//                                                "url" => "#",
-//                                                "badge" => "!",
-//                                                "badgeOptions" => ["class" => "label-danger"],
-//                                            ],
-//                                        ],
-//                                    ],
-//                                    [
-//                                        "label" => "Multilevel",
-//                                        "url" => "#",
-//                                        "icon" => "table",
-//                                        "items" => [
-//                                            [
-//                                                "label" => "Second level 1",
-//                                                "url" => "#",
-//                                            ],
-//                                            [
-//                                                "label" => "Second level 2",
-//                                                "url" => "#",
-//                                                "items" => [
-//                                                    [
-//                                                        "label" => "Third level 1",
-//                                                        "url" => "#",
-//                                                    ],
-//                                                    [
-//                                                        "label" => "Third level 2",
-//                                                        "url" => "#",
-//                                                    ],
-//                                                ],
-//                                            ],
-//                                        ],
-//                                    ],
                                 ],
                             ]
                         )
@@ -191,7 +103,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                     </a>
 
                     <?php echo Html::a('  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>',
-                        ['/site/logout'], ['data-method' => 'POST']) ?>
+                    ['/site/logout'], ['data-method' => 'POST']) ?>
 
 
                 </div>
@@ -221,7 +133,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
 
                                 <li>
                                     <?php echo Html::a('<i class="fa fa-sign-out"></i>' . 'Sign out',
-                                        ['/site/logout'], ['data-method' => 'POST']) ?>
+                                    ['/site/logout'], ['data-method' => 'POST']) ?>
                                 </li>
                             </ul>
                         </li>
@@ -237,26 +149,24 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
         <!-- page content -->
         <div class="right_col" role="main">
             <?php if (isset($this->params['h1'])): ?>
-                <div class="page-title">
-                    <div class="title_left">
-                        <h1><?= $this->params['h1'] ?></h1>
-                    </div>
-                    <div class="title_right">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
+            <div class="page-title">
+                <div class="title_left">
+                    <h1><?= $this->params['h1'] ?></h1>
+                </div>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">Go!</button>
                             </span>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
             <?php endif; ?>
-            <div class="clearfix"></div>
-            <?php echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
+                <div class="clearfix"></div>
+            <?php echo Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
             <?= $content ?>
         </div>
         <!-- /page content -->

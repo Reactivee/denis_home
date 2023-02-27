@@ -12,12 +12,12 @@ use yii\web\View;
 <aside class="main-sidebar">
     <section class="sidebar">
 
-        <?php echo empty($menuItems = Menus::getMainAdminMenu('admin_menu')) ?
-            Yii::t('views', '<pre class="bg-warning">Menu not found.<br>key => "{key}"</pre>', ['key' => 'admin_menu']) :
-            Menu::widget([
-                'options' => ['class' => 'sidebar-menu'],
-                'items' => $menuItems,
-            ]);
+<!--        --><?php //echo empty($menuItems = Menus::getMainAdminMenu('admin_menu')) ?
+//            Yii::t('views', '<pre class="bg-warning">Menu not found.<br>key => "{key}"</pre>', ['key' => 'admin_menu']) :
+//            Menu::widget([
+//                'options' => ['class' => 'sidebar-menu'],
+//                'items' => $menuItems,
+//            ]);
 
        /* echo '<pre>';
             var_dump(Helper::filter($menuItems));
