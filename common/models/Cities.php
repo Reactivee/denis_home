@@ -16,6 +16,8 @@ use Yii;
  * @property string|null $text_ru
  * @property string|null $img
  * @property string|null $link
+ *
+ * @property Regions[] $regions
  */
 class Cities extends \yii\db\ActiveRecord
 {
@@ -54,5 +56,11 @@ class Cities extends \yii\db\ActiveRecord
             'img' => 'Img',
             'link' => 'Link',
         ];
+    }
+
+    public function getRegions()
+    {
+        return $this->hasMany(Regions::class, ['city_id' => 'id']);
+
     }
 }

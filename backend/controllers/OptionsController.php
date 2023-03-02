@@ -4,6 +4,12 @@ namespace backend\controllers;
 
 use common\models\Options;
 use common\models\OptionsSearch;
+use common\models\OptionValues;
+use common\models\OptionValuesSearch;
+use common\service\MultipleModelService;
+use Yii;
+use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,8 +61,16 @@ class OptionsController extends Controller
      */
     public function actionView($id)
     {
+
+        $model = $this->findModel($id);
+        $searchModel = new OptionValuesSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere([
+            'option_id' => $model->id
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -68,9 +82,38 @@ class OptionsController extends Controller
     public function actionCreate()
     {
         $model = new Options();
-
+        $optionValues = [new OptionValues()];
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+
+                $optionValues = MultipleModelService::createMultiple(OptionValues::className());
+                Model::loadMultiple($optionValues, Yii::$app->request->post());
+
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($optionValues) && $valid;
+
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($optionValues as $optionValue) {
+                                $optionValue->option_id = $model->id;
+                                if (! ($flag = $optionValue->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
+
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -79,6 +122,7 @@ class OptionsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'optionValues' => $optionValues,
         ]);
     }
 
@@ -92,13 +136,52 @@ class OptionsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $optionValues = $model->optionValues;
+        if (empty($optionValues))
+            $optionValues = [new OptionValues()];
+        //dd($optionValues);
+        if ($this->request->isPost && $model->load($this->request->post())) {
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $oldIDs = ArrayHelper::map($optionValues, 'id', 'id');
+            $optionValues = MultipleModelService::createMultiple(OptionValues::classname(), $optionValues);
+            Model::loadMultiple($optionValues, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($optionValues, 'id', 'id')));
+
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($optionValues) && $valid;
+            //dd($valid);
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            OptionValues::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($optionValues as $optionValue) {
+                            $optionValue->option_id = $model->id;
+                            if (! ($flag = $optionValue->save(false))) {
+
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'optionValues' => $optionValues
         ]);
     }
 

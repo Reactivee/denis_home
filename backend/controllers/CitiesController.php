@@ -4,7 +4,12 @@ namespace backend\controllers;
 
 use common\models\Cities;
 use common\models\CitiesSearch;
+use common\models\Regions;
+use common\models\RegionsSearch;
+use common\service\MultipleModelService;
 use Yii;
+use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -57,8 +62,16 @@ class CitiesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $searchModel = new RegionsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere([
+            'city_id' => $model->id
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -70,9 +83,10 @@ class CitiesController extends Controller
     public function actionCreate()
     {
         $model = new Cities();
-
+        $regions = [new Regions()];
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                dd(Yii::$app->request->post());
                 $img = UploadedFile::getInstance($model, 'img');
                 //var_dump($img);die();
                 if ($img) {
@@ -90,8 +104,35 @@ class CitiesController extends Controller
                 if ($model['oldAttributes']['img'] && !$img) {
                     $model->img = $model['oldAttributes']['img'];
                 }
-                $model->save();
+
+                $regions = MultipleModelService::createMultiple(Regions::className());
+                Model::loadMultiple($regions, Yii::$app->request->post());
+
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($regions) && $valid;
+
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($regions as $region) {
+                                $region->city_id = $model->id;
+                                if (! ($flag = $region->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
+
             }
         } else {
             $model->loadDefaultValues();
@@ -99,6 +140,8 @@ class CitiesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'regions' => $regions,
+
         ]);
     }
 
@@ -112,7 +155,10 @@ class CitiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $regions = $model->regions;
+        if (empty($regions))
+            $regions = [new Regions()];
+        //dd($regions);
         if ($this->request->isPost && $model->load($this->request->post())) {
             $img = UploadedFile::getInstance($model, 'img');
             //var_dump($img);die();
@@ -131,12 +177,49 @@ class CitiesController extends Controller
             if ($model['oldAttributes']['img'] && !$img) {
                 $model->img = $model['oldAttributes']['img'];
             }
-            $model->save();
+
+            $oldIDs = ArrayHelper::map($regions, 'id', 'id');
+            $regions = MultipleModelService::createMultiple(Regions::classname(), $regions);
+            Model::loadMultiple($regions, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($regions, 'id', 'id')));
+
+
+            // validate all models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($regions) && $valid;
+            //dd($valid);
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            Regions::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($regions as $region) {
+                            $region->city_id = $model->id;
+                            if (! ($flag = $region->save(false))) {
+
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'regions' => $regions,
         ]);
     }
 
