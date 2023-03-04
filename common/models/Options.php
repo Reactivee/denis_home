@@ -71,6 +71,18 @@ class Options extends \yii\db\ActiveRecord
      */
     public function getOptionValues()
     {
-        return $this->hasMany(OptionValues::class, ['option_id' => 'id']);
+        return $this->hasMany(OptionValues::class, ['option_id' => 'id'])->orderBy(['weight'=>SORT_ASC]);
+    }
+
+
+    public static function getOptionsListWithValues()
+    {
+        $list = Options::find()
+            ->select('id,title_tr as title')
+            ->with(['optionValues'])
+            ->orderBy([
+                'weight' => SORT_ASC
+            ])->asArray()->all();
+        return $list;
     }
 }

@@ -2,8 +2,15 @@
 
 namespace backend\controllers;
 
+use common\models\Apartments;
 use common\models\Complexes;
 use common\models\ComplexesSearch;
+use common\models\Options;
+use common\models\Regions;
+use common\service\ComplexService;
+use common\service\MultipleModelService;
+use Yii;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -55,6 +62,8 @@ class ComplexesController extends Controller
      */
     public function actionView($id)
     {
+        $model =  $this->findModel($id);
+        dd($model->tags);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -68,9 +77,44 @@ class ComplexesController extends Controller
     public function actionCreate()
     {
         $model = new Complexes();
-
+        $options = Options::getOptionsListWithValues();
+        $apartments = [new Apartments()];
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                //d(Yii::$app->request->post());
+                $post = Yii::$app->request->post();
+                $model->tag_ids = $post['Complexes']['tag_ids'];
+                $model->options = $post['Complexes']['options'];
+
+                $apartments = MultipleModelService::createMultiple(Apartments::className());
+                Model::loadMultiple($apartments, Yii::$app->request->post());
+
+                $valid = $model->validate();
+                $valid = Model::validateMultiple($apartments) && $valid;
+                //dd('csdcs');
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model->save(false)) {
+                            foreach ($apartments as $apartment) {
+                                $apartment->complex_id = $model->id;
+                                if (! ($flag = $apartment->save(false))) {
+                                    $transaction->rollBack();
+                                    break;
+                                }
+                            }
+                        }
+                        if ($flag) {
+                            ComplexService::saveTags($model);
+                            ComplexService::saveOptions($model);
+                            $transaction->commit();
+                            return $this->redirect(['view', 'id' => $model->id]);
+                        }
+                    } catch (\Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -79,6 +123,8 @@ class ComplexesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'options' => $options,
+            'apartments' => $apartments,
         ]);
     }
 
@@ -130,5 +176,25 @@ class ComplexesController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionRegions()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $city_id = $parents[0];
+                $out = Regions::find()
+                    ->select(['id', 'name_tr as name'])
+                    ->where([
+                        'city_id' => $city_id
+                    ])
+                    ->asArray()->all();
+                return ['output'=>$out, 'selected'=>''];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
     }
 }

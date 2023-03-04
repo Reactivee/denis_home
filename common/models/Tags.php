@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tags".
@@ -45,5 +46,13 @@ class Tags extends \yii\db\ActiveRecord
             'title_en' => 'Title En',
             'icon' => 'Icon',
         ];
+    }
+
+
+    public static function getTagsList()
+    {
+        $array = self::find()->select('id, title_tr as title')->asArray()->all();
+
+        return ArrayHelper::map($array,'id','title');
     }
 }

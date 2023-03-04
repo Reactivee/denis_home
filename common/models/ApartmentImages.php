@@ -19,6 +19,10 @@ use Yii;
  */
 class ApartmentImages extends \yii\db\ActiveRecord
 {
+
+
+    public $images;
+
     /**
      * {@inheritdoc}
      */
@@ -36,6 +40,7 @@ class ApartmentImages extends \yii\db\ActiveRecord
             [['apartment_id', 'complex_id', 'weight', 'created_at', 'updated_at'], 'integer'],
             [['path'], 'string', 'max' => 255],
             [['apartment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Apartments::class, 'targetAttribute' => ['apartment_id' => 'id']],
+            [['images'], 'safe'],
         ];
     }
 
