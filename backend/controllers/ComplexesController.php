@@ -100,6 +100,7 @@ class ComplexesController extends Controller
                 $post = Yii::$app->request->post();
                 $model->tag_ids = $post['Complexes']['tag_ids'];
                 $model->options = $post['Complexes']['options'];
+                $model->infrastructure_ids = $post['Complexes']['infrastructure_ids'];
 
                 $apartments = MultipleModelService::createMultiple(Apartments::className());
                 Model::loadMultiple($apartments, Yii::$app->request->post());
@@ -122,6 +123,7 @@ class ComplexesController extends Controller
                         if ($flag) {
                             ComplexService::saveTags($model);
                             ComplexService::saveOptions($model);
+                            ComplexService::saveInfrastructures($model);
                             $transaction->commit();
                             return $this->redirect(['view', 'id' => $model->id]);
                         }
@@ -171,6 +173,7 @@ class ComplexesController extends Controller
             $post = Yii::$app->request->post();
             $model->tag_ids = $post['Complexes']['tag_ids'];
             $model->options = $post['Complexes']['options'];
+            $model->infrastructure_ids = $post['Complexes']['infrastructure_ids'];
             $oldIDs = ArrayHelper::map($apartments, 'id', 'id');
 
             $apartments = MultipleModelService::createMultiple(Apartments::className());
@@ -198,6 +201,7 @@ class ComplexesController extends Controller
                     if ($flag) {
                         ComplexService::updateTagIds($model);
                         ComplexService::updateOptions($model);
+                        ComplexService::updateInfrastructures($model);
                         $transaction->commit();
                         return $this->redirect(['view', 'id' => $model->id]);
                     }

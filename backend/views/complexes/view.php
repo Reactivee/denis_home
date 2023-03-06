@@ -82,6 +82,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $return;
                             }
                     ],
+                    [
+                            'attribute' => 'infrastructure_ids',
+                            'label' => 'Infrastructures',
+                            'format' => 'raw',
+                            'value' => function(Complexes $model)
+                            {
+                                foreach ($model->infrastructures as $infrastructure)
+                                {
+                                    $return .='<span class="btn btn-danger">'.$infrastructure->title_tr.'</span>';
+                                }
+
+                                return $return;
+                            }
+                    ],
                 ],
             ]) ?>
         </div>

@@ -2,6 +2,7 @@
 namespace common\service;
 
 use common\models\Complexes;
+use common\models\ComplexInfrastructure;
 use common\models\ComplexOptions;
 use common\models\ComplexTags;
 use Yii;
@@ -10,6 +11,9 @@ use yii\helpers\ArrayHelper;
 
 class ComplexService
 {
+
+    //TAGS
+
     public static function saveTags(Complexes $complex)
     {
         if (!empty($complex->tag_ids))
@@ -60,6 +64,63 @@ class ComplexService
             }
         }
     }
+
+
+    //Infrastructures
+
+    public static function saveInfrastructures(Complexes $complex)
+    {
+        if (!empty($complex->infrastructure_ids))
+        {
+            foreach ($complex->infrastructure_ids as $val)
+            {
+                $complexTag = new ComplexInfrastructure();
+                $complexTag->complex_id = $complex->id;
+                $complexTag->infrastructure_id = $val;
+                $complexTag->save();
+            }
+        }
+
+    }
+
+    public static function updateInfrastructures(Complexes $complex)
+    {
+        $complexInfrastructures = ComplexInfrastructure::find()
+            ->where([
+                'complex_id' => $complex->id
+            ])->asArray()->all();
+        $old_ids = ArrayHelper::map($complexInfrastructures,'infrastructure_id','infrastructure_id');
+        $old_diff = array_diff($old_ids,$complex->infrastructure_ids);
+        if (!empty($old_diff))
+        {
+            foreach ($old_diff as $k_old => $v_old)
+            {
+                $old_infrastructure = ComplexInfrastructure::findOne([
+                    'complex_id' => $complex->id,
+                    'infrastructure_id' => $v_old
+                ]);
+                if ($old_infrastructure != null)
+                    $old_infrastructure->delete();
+                else
+                    continue;
+            }
+        }
+
+        $new_diff = array_diff($complex->infrastructure_ids,$old_ids);
+        if (!empty($new_diff))
+        {
+            foreach ($new_diff as $k_new => $v_new)
+            {
+                $complexTag = new ComplexInfrastructure();
+                $complexTag->complex_id = $complex->id;
+                $complexTag->infrastructure_id = $v_new;
+                $complexTag->save();
+            }
+        }
+    }
+
+
+
 
     public static function saveOptions(Complexes $complex)
     {

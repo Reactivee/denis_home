@@ -31,6 +31,7 @@ use yii\behaviors\TimestampBehavior;
  * @property ComplexImages[] $complexImages
  * @property ComplexOptions[] $complexOptions
  * @property Tags[] $tags
+ * @property Infrastructure[] $infrastructures
  * @property TypeFlat $type
  * @property Cities $city
  * @property Regions $region
@@ -41,6 +42,7 @@ class Complexes extends \yii\db\ActiveRecord
     public $tag_ids;
     public $images;
     public $options;
+    public $infrastructure_ids;
 
     /**
      * {@inheritdoc}
@@ -58,7 +60,7 @@ class Complexes extends \yii\db\ActiveRecord
         return [
             [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en'], 'string'],
             [['city_id', 'region_id', 'created_at', 'updated_at', 'created_by', 'updated_by','count_buildings', 'count_storeys',], 'integer'],
-            [['tag_ids','images','options'], 'safe'],
+            [['tag_ids','images','options','infrastructure_ids'], 'safe'],
             [['address','city_id','region_id','address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','type_id','count_buildings','count_storeys'], 'required'],
         ];
     }
@@ -132,6 +134,15 @@ class Complexes extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(Tags::class, ['id' => 'tag_id'])->viaTable('complex_tags',['complex_id'=>'id']);
+    }
+    /**
+     * Gets query for [[ComplexInfrastructure]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInfrastructures()
+    {
+        return $this->hasMany(Infrastructure::class, ['id' => 'infrastructure_id'])->viaTable('complex_infrastructure',['complex_id'=>'id']);
     }
 
     public function getType()
