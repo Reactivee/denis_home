@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "complexes".
@@ -56,10 +57,10 @@ class Complexes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en'], 'string'],
-            [['city_id', 'region_id', 'created_at', 'updated_at', 'created_by', 'updated_by','count_buildings', 'count_storeys',], 'integer'],
-            [['tag_ids','images','options'], 'safe'],
-            [['address','city_id','region_id','address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','type_id','count_buildings','count_storeys'], 'required'],
+            [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr', 'title_ru', 'title_en'], 'string'],
+            [['city_id', 'region_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'count_buildings', 'count_storeys',], 'integer'],
+            [['tag_ids', 'images', 'options'], 'safe'],
+            [['address', 'city_id', 'region_id', 'address', 'description_tr', 'description_ru', 'description_en', 'title_tr', 'title_ru', 'title_en', 'type_id', 'count_buildings', 'count_storeys'], 'required'],
         ];
     }
 
@@ -106,6 +107,16 @@ class Complexes extends \yii\db\ActiveRecord
         return $this->hasMany(Apartments::class, ['complex_id' => 'id']);
     }
 
+    public function getApartmentsGroup()
+    {
+        $grouped = Apartments::find()->where(['complex_id' => $this->id])->orderBy(['price' => SORT_ASC])->all();
+//    dd($grouped);
+        $grouped = ArrayHelper::index($grouped, null, 'count_rooms');
+// /       dd($grouped);
+        return $grouped;
+//        return $this->hasMany(Apartments::class, ['complex_id' => 'id'])->orderBy(['price' => SORT_ASC]);
+    }
+
     /**
      * Gets query for [[ComplexImages]].
      *
@@ -115,6 +126,7 @@ class Complexes extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ComplexImages::class, ['complex_id' => 'id']);
     }
+
     /**
      * Gets query for [[ComplexOptions]].
      *
@@ -124,6 +136,7 @@ class Complexes extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ComplexOptions::class, ['complex_id' => 'id']);
     }
+
     /**
      * Gets query for [[ComplexOptions]].
      *
@@ -131,20 +144,22 @@ class Complexes extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tags::class, ['id' => 'tag_id'])->viaTable('complex_tags',['complex_id'=>'id']);
+        return $this->hasMany(Tags::class, ['id' => 'tag_id'])->viaTable('complex_tags', ['complex_id' => 'id']);
     }
 
     public function getType()
     {
-        return $this->hasOne(TypeFlat::class,['id' => 'type_id']);
+        return $this->hasOne(TypeFlat::class, ['id' => 'type_id']);
     }
+
     public function getCity()
     {
-        return $this->hasOne(Cities::class,['id' => 'city_id']);
+        return $this->hasOne(Cities::class, ['id' => 'city_id']);
     }
+
     public function getRegion()
     {
-        return $this->hasOne(Regions::class,['id' => 'region_id']);
+        return $this->hasOne(Regions::class, ['id' => 'region_id']);
     }
 
 

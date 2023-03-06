@@ -37,8 +37,6 @@
     "kartik-v/yii2-editors": "*",
     "wbraganca/yii2-dynamicform": "^2.0",
     "kartik-v/yii2-widget-depdrop": "^1.0"
-    "kartik-v/yii2-editors": "*",
-    "yiisoft/yii2-bootstrap5": "*"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

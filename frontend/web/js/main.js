@@ -2,12 +2,13 @@
 
 AOS.init();
 /*baner swiper*/
-var swiper = new Swiper(".banner", {
+var swiper_banner = new Swiper(".banner", {
     pagination: {
         el: ".swiper-pagination",
         // type: "fraction",
         effect: "fade",
-
+        // slidesPerView: 4,
+        // spaceBetween: 30,
     },
     navigation: {
         nextEl: ".swiper-button-next",
@@ -15,10 +16,41 @@ var swiper = new Swiper(".banner", {
     },
 });
 
+var swiper_view = new Swiper(".view_card", {
+    pagination: {
+        el: ".swiper-pagination",
+        type: "fraction",
+        effect: "fade",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+
+    },
+});
+var swiper_team = new Swiper(".team_slider", {
+    slidesPerView: 3,
+    spaceBetween: 30,
+    slidesPerGroup: 3,
+    pagination: {
+        pagination: {
+            // el: ".swiper-pagination",
+            clickable: true
+        },
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    }
+});
+
+
 /*Chart price*/
 
 
-    // =======================================================
+// =======================================================
+
 
 
 <!-- JS Plugins Init. -->
@@ -32,8 +64,8 @@ $(".js-ion-range-slider").ionRangeSlider({
     grid: false,
     grid_margin: true,
     grid_snap: true,
-    // result_min_target_el: "#rangeSliderExampleDouble4MinResult",
-    // result_max_target_el: "#rangeSliderExampleDouble4MaxResult",
+    result_min_target_el: "#pricemin",
+    result_max_target_el: "#pricemax",
     foreground_target_el: "#foregroundBarChartSingleResult",
 
     onStart: function (data) {
@@ -81,24 +113,7 @@ $(".js-ion-range-slider").ionRangeSlider({
         // console.log(data.from_percent);
     }
 });
-
-const ctx = document.getElementById('myChart');
-
-new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
+//
+// $('.js-chart').each(function () {
+//     var chart = $.HSCore.components.HSChartJS.init($(this));
+// });
