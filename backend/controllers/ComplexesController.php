@@ -3,14 +3,18 @@
 namespace backend\controllers;
 
 use common\models\Apartments;
+use common\models\ApartmentsSearch;
 use common\models\Complexes;
 use common\models\ComplexesSearch;
+use common\models\ComplexOptions;
+use common\models\ComplexOptionsSearch;
 use common\models\Options;
 use common\models\Regions;
 use common\service\ComplexService;
 use common\service\MultipleModelService;
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,9 +67,20 @@ class ComplexesController extends Controller
     public function actionView($id)
     {
         $model =  $this->findModel($id);
-        dd($model->tags);
+        $searchModel = new ApartmentsSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere([
+            'complex_id' => $model->id
+        ]);
+        $optionsSearch = new ComplexOptionsSearch();
+        $optionsDataProvider = $optionsSearch->search($this->request->queryParams);
+        $optionsDataProvider->query->andWhere([
+            'complex_id' => $model->id
+        ]);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'optionsDataProvider' => $optionsDataProvider,
         ]);
     }
 
@@ -138,13 +153,75 @@ class ComplexesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $options = Options::getOptionsListWithValues();
+        //dd($model->complexOptions);
+        $apartments = $model->apartments;
+        //dd($options);
+        if (empty($apartments))
+            $apartments = [new Apartments()];
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        $complex_options = ComplexOptions::find()
+            ->where([
+                'complex_id' => $model->id
+            ])->asArray()->all();
+
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+            $post = Yii::$app->request->post();
+            $model->tag_ids = $post['Complexes']['tag_ids'];
+            $model->options = $post['Complexes']['options'];
+            $oldIDs = ArrayHelper::map($apartments, 'id', 'id');
+
+            $apartments = MultipleModelService::createMultiple(Apartments::className());
+            Model::loadMultiple($apartments, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($apartments, 'id', 'id')));
+
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($apartments) && $valid;
+            //dd('csdcs');
+            if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        if (! empty($deletedIDs)) {
+                            Apartments::deleteAll(['id' => $deletedIDs]);
+                        }
+                        foreach ($apartments as $apartment) {
+                            $apartment->complex_id = $model->id;
+                            if (! ($flag = $apartment->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                    if ($flag) {
+                        ComplexService::updateTagIds($model);
+                        ComplexService::updateOptions($model);
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+        }
+        $model->tag_ids = ArrayHelper::map($model->getTags()->asArray()->all(),'id','id');
+        if (!empty($complex_options))
+        {
+            foreach ($complex_options as $complex_option)
+            {
+                $model->options[$complex_option['option_id']] = $complex_option['value_id'];
+            }
+
         }
 
         return $this->render('update', [
             'model' => $model,
+            'apartments' => $apartments,
+            'options' => $options,
         ]);
     }
 

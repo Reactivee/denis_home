@@ -32,6 +32,8 @@ use yii\behaviors\TimestampBehavior;
  * @property ComplexOptions[] $complexOptions
  * @property Tags[] $tags
  * @property TypeFlat $type
+ * @property Cities $city
+ * @property Regions $region
  */
 class Complexes extends \yii\db\ActiveRecord
 {
@@ -134,7 +136,15 @@ class Complexes extends \yii\db\ActiveRecord
 
     public function getType()
     {
-        return $this->hasOne(TypeFlat::tableName(),['id' => 'type_id']);
+        return $this->hasOne(TypeFlat::class,['id' => 'type_id']);
+    }
+    public function getCity()
+    {
+        return $this->hasOne(Cities::class,['id' => 'city_id']);
+    }
+    public function getRegion()
+    {
+        return $this->hasOne(Regions::class,['id' => 'region_id']);
     }
 
 
