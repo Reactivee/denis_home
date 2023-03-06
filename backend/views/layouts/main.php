@@ -75,6 +75,8 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                     ["label" => "Advantages", "url" => ["/advantages"], "icon" => "th-large"],
                                     ["label" => "Type Flats", "url" => ["/type-flat"], "icon" => "th-large"],
                                     ["label" => "Cities", "url" => ["/cities"], "icon" => "th-large"],
+                                    ["label" => "Tags", "url" => ["/tags"], "icon" => "th-large"],
+                                    ["label" => "Options", "url" => ["/options"], "icon" => "th-large"],
                                     ["label" => "About", "url" => "#", "icon" => "files-o",
                                         "items" => [
                                             ["label" => "About", "url" => ["/about"]],

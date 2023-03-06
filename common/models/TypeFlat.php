@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "type_flat".
@@ -56,5 +57,11 @@ class TypeFlat extends \yii\db\ActiveRecord
             'text_tr' => 'Text Tr',
             'text_ru' => 'Text Ru',
         ];
+    }
+
+    public static function getTypesList()
+    {
+        $array = self::find()->asArray()->all();
+        return ArrayHelper::map($array,'id','title_tr');
     }
 }
