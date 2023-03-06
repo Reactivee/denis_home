@@ -84,7 +84,29 @@ use yii\widgets\ActiveForm;
 
                    'options' => [
 
-                       'placeholder' => 'Select authors ...',
+                       'placeholder' => 'Select tags ...',
+
+                       'multiple' => 'true'
+
+                   ],
+
+                   'pluginOptions' => [
+
+                       'allowClear' => true
+
+                   ],
+
+               ]);?>
+           </div>
+           <div class="col-md-4">
+
+               <?= $form->field($model, 'infrastructure_ids')->widget(Select2::classname(), [
+
+                   'data' => \common\models\Infrastructure::getInfrastructureList(),
+
+                   'options' => [
+
+                       'placeholder' => 'Select infrastructure ...',
 
                        'multiple' => 'true'
 

@@ -2,6 +2,7 @@
 namespace common\service;
 
 use common\models\Complexes;
+use common\models\ComplexImages;
 use common\models\ComplexInfrastructure;
 use common\models\ComplexOptions;
 use common\models\ComplexTags;
@@ -162,6 +163,60 @@ class ComplexService
                     $complex_option->value_id = (int)$value;
                     $complex_option->save();
                 }
+            }
+        }
+    }
+
+
+    // Images
+
+    public static function saveImages(Complexes $complex)
+    {
+        $images = json_decode($complex->images,true);
+        if (!empty($images))
+        {
+            $old_images = $complex->complexImages;
+            if (!empty($old_images))
+            {
+                $last_image=ComplexImages::find()
+                    ->where([
+                        'complex_id' => $complex->id
+                    ])->orderBy([
+                        'weight' =>SORT_DESC
+                    ])->one();
+                $i = $last_image->weight+1;
+            }
+            else
+                $i = 1;
+            foreach ($images as $key => $image)
+            {
+                $complex_image = new ComplexImages();
+                $complex_image->complex_id = $complex->id;
+                $complex_image->path = $image['path'];
+                $complex_image->generate_name = $image['generate_name'];
+                $complex_image->name = $key;
+                $complex_image->weight = $i;
+                $complex_image->save();
+                $i++;
+            }
+        }
+    }
+    public static function deleteImages(Complexes $complex)
+    {
+        $images = json_decode($complex->images,true);
+        if (!empty($images))
+        {
+            $i = 1;
+            foreach ($images as $key => $image)
+            {
+                $complex_image = new ComplexImages();
+                $complex_image->complex_id = $complex->id;
+                $complex_image->path = $image['path'];
+                $complex_image->generate_name = $image['generate_name'];
+                $complex_image->name = $key;
+                $complex_image->weight = $i;
+                $complex_image->save();
+                $i++;
             }
         }
     }

@@ -41,6 +41,8 @@ class Complexes extends \yii\db\ActiveRecord
 
     public $tag_ids;
     public $images;
+    public $deleted_images;
+    public $sorted_images;
     public $options;
     public $infrastructure_ids;
 
@@ -60,7 +62,7 @@ class Complexes extends \yii\db\ActiveRecord
         return [
             [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en'], 'string'],
             [['city_id', 'region_id', 'created_at', 'updated_at', 'created_by', 'updated_by','count_buildings', 'count_storeys',], 'integer'],
-            [['tag_ids','images','options','infrastructure_ids'], 'safe'],
+            [['tag_ids','images','options','infrastructure_ids','sorted_images','deleted_images'], 'safe'],
             [['address','city_id','region_id','address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','type_id','count_buildings','count_storeys'], 'required'],
         ];
     }

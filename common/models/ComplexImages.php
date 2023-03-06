@@ -14,6 +14,8 @@ use yii\behaviors\TimestampBehavior;
  * @property int|null $weight
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property string|null $name
+ * @property string|null $generate_name
  *
  * @property Complexes $complex
  */
@@ -34,7 +36,7 @@ class ComplexImages extends \yii\db\ActiveRecord
     {
         return [
             [['complex_id', 'weight', 'created_at', 'updated_at'], 'integer'],
-            [['path'], 'string', 'max' => 255],
+            [['path','name','generate_name'], 'string', 'max' => 255],
             [['complex_id'], 'exist', 'skipOnError' => true, 'targetClass' => Complexes::class, 'targetAttribute' => ['complex_id' => 'id']],
         ];
     }

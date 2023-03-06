@@ -3,6 +3,7 @@
 use common\models\Apartments;
 use common\models\Complexes;
 use common\models\ComplexOptions;
+use dosamigos\gallery\Gallery;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -17,6 +18,15 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Complexes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$css = <<<CSS
+    .amigos-gallery img
+    {
+        max-width: 200px;
+    }
+CSS;
+$this->registerCss($css);
+
 ?>
 <div class="complexes-view">
 
@@ -31,6 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Set Images', ['images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+
     </p>
 
     <div class="row">
@@ -96,6 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $return;
                             }
                     ],
+
                 ],
             ]) ?>
         </div>
@@ -138,5 +151,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Images</h2>
+            <?php
+            $items = [];
+            if (!empty($images = $model->complexImages)) {
+                foreach ($images as $image) {
+                    array_push($items, [
+                        'src' => $image->path,
+                        'options' => ['title' => $image->name, 'class' => 'amigos-gallery']
+                    ]);
+                }
+            }
+            echo Gallery::widget(['items' => $items]);
 
+            ?>
+        </div>
+    </div>
 </div>

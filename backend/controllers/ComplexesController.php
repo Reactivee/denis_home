@@ -6,6 +6,7 @@ use common\models\Apartments;
 use common\models\ApartmentsSearch;
 use common\models\Complexes;
 use common\models\ComplexesSearch;
+use common\models\ComplexImages;
 use common\models\ComplexOptions;
 use common\models\ComplexOptionsSearch;
 use common\models\Options;
@@ -18,6 +19,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * ComplexesController implements the CRUD actions for Complexes model.
@@ -213,6 +216,7 @@ class ComplexesController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $model->tag_ids = ArrayHelper::map($model->getTags()->asArray()->all(),'id','id');
+        $model->infrastructure_ids = ArrayHelper::map($model->getInfrastructures()->asArray()->all(),'id','id');
         if (!empty($complex_options))
         {
             foreach ($complex_options as $complex_option)
@@ -277,5 +281,70 @@ class ComplexesController extends Controller
             }
         }
         return ['output'=>'', 'selected'=>''];
+    }
+
+    public function actionImages($id)
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        {
+            ComplexService::saveImages($model);
+            return $this->redirect(['view','id' => $id]);
+        }
+        return $this->render('images',[
+            'model' => $model
+        ]);
+    }
+
+
+    public function actionUploadImages($id)
+    {
+        $model = $this->findModel($id);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = [];
+
+        if ($file_image = UploadedFile::getInstancesByName('complex_images')) {
+            foreach ($file_image as $file) {
+                $folder = '/complex/images/';
+                $uploads_folder = Yii::getAlias('@frontend').'/web/uploads'.$folder;
+                if (!file_exists($uploads_folder)) {
+                    mkdir($uploads_folder, 0777, true);
+                }
+                $ext = pathinfo($file->name, PATHINFO_EXTENSION);
+                $name = pathinfo($file->name, PATHINFO_FILENAME);
+                $generateName = Yii::$app->security->generateRandomString();
+                $path = $uploads_folder . $generateName . ".{$ext}";
+                $file->saveAs($path);
+                //dd($path);
+                $data = [
+                    'generate_name' => $generateName,
+                    'name' => $name,
+                    'path' => Yii::getAlias('@uploadsUrl') . $folder . $generateName . ".{$ext}"
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function actionDeleteImages()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $complex_image = ComplexImages::find()
+                ->where([
+                    'generate_name' => $post['key']
+                ])->one();
+            $image_path = $complex_image->path;
+            if ($complex_image->delete()) {
+                if (file_exists(Yii::getAlias('@rootDir').$image_path))
+                    unlink(Yii::getAlias('@rootDir').$image_path);
+                return $post['key'];
+            }
+        }
+        return ($post = Yii::$app->request->post()) ? $post['key'] : null;
     }
 }
