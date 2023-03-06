@@ -2,22 +2,23 @@
 
 namespace backend\controllers;
 
+use common\models\Apartments;
+use common\models\Complexes;
+use common\models\ComplexesSearch;
 use common\models\Options;
-use common\models\OptionsSearch;
-use common\models\OptionValues;
-use common\models\OptionValuesSearch;
+use common\models\Regions;
+use common\service\ComplexService;
 use common\service\MultipleModelService;
 use Yii;
 use yii\base\Model;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * OptionsController implements the CRUD actions for Options model.
+ * ComplexesController implements the CRUD actions for Complexes model.
  */
-class OptionsController extends Controller
+class ComplexesController extends Controller
 {
     /**
      * @inheritDoc
@@ -38,13 +39,13 @@ class OptionsController extends Controller
     }
 
     /**
-     * Lists all Options models.
+     * Lists all Complexes models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new OptionsSearch();
+        $searchModel = new ComplexesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -54,57 +55,58 @@ class OptionsController extends Controller
     }
 
     /**
-     * Displays a single Options model.
+     * Displays a single Complexes model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-
-        $model = $this->findModel($id);
-        $searchModel = new OptionValuesSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-        $dataProvider->query->andWhere([
-            'option_id' => $model->id
-        ]);
+        $model =  $this->findModel($id);
+        dd($model->tags);
         return $this->render('view', [
-            'model' => $model,
-            'dataProvider' => $dataProvider
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Options model.
+     * Creates a new Complexes model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Options();
-        $optionValues = [new OptionValues()];
+        $model = new Complexes();
+        $options = Options::getOptionsListWithValues();
+        $apartments = [new Apartments()];
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                //d(Yii::$app->request->post());
+                $post = Yii::$app->request->post();
+                $model->tag_ids = $post['Complexes']['tag_ids'];
+                $model->options = $post['Complexes']['options'];
 
-                $optionValues = MultipleModelService::createMultiple(OptionValues::className());
-                Model::loadMultiple($optionValues, Yii::$app->request->post());
+                $apartments = MultipleModelService::createMultiple(Apartments::className());
+                Model::loadMultiple($apartments, Yii::$app->request->post());
 
                 $valid = $model->validate();
-                $valid = Model::validateMultiple($optionValues) && $valid;
-
+                $valid = Model::validateMultiple($apartments) && $valid;
+                //dd('csdcs');
                 if ($valid) {
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model->save(false)) {
-                            foreach ($optionValues as $optionValue) {
-                                $optionValue->option_id = $model->id;
-                                if (! ($flag = $optionValue->save(false))) {
+                            foreach ($apartments as $apartment) {
+                                $apartment->complex_id = $model->id;
+                                if (! ($flag = $apartment->save(false))) {
                                     $transaction->rollBack();
                                     break;
                                 }
                             }
                         }
                         if ($flag) {
+                            ComplexService::saveTags($model);
+                            ComplexService::saveOptions($model);
                             $transaction->commit();
                             return $this->redirect(['view', 'id' => $model->id]);
                         }
@@ -112,7 +114,6 @@ class OptionsController extends Controller
                         $transaction->rollBack();
                     }
                 }
-
 
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -122,12 +123,13 @@ class OptionsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'optionValues' => $optionValues,
+            'options' => $options,
+            'apartments' => $apartments,
         ]);
     }
 
     /**
-     * Updates an existing Options model.
+     * Updates an existing Complexes model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -136,57 +138,18 @@ class OptionsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $optionValues = $model->optionValues;
-        if (empty($optionValues))
-            $optionValues = [new OptionValues()];
-        //dd($optionValues);
-        if ($this->request->isPost && $model->load($this->request->post())) {
 
-            $oldIDs = ArrayHelper::map($optionValues, 'id', 'id');
-            $optionValues = MultipleModelService::createMultiple(OptionValues::classname(), $optionValues);
-            Model::loadMultiple($optionValues, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($optionValues, 'id', 'id')));
-
-
-            // validate all models
-            $valid = $model->validate();
-            $valid = Model::validateMultiple($optionValues) && $valid;
-            //dd($valid);
-            if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    if ($flag = $model->save(false)) {
-                        if (! empty($deletedIDs)) {
-                            OptionValues::deleteAll(['id' => $deletedIDs]);
-                        }
-                        foreach ($optionValues as $optionValue) {
-                            $optionValue->option_id = $model->id;
-                            if (! ($flag = $optionValue->save(false))) {
-
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                } catch (\Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'optionValues' => $optionValues
         ]);
     }
 
     /**
-     * Deletes an existing Options model.
+     * Deletes an existing Complexes model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -200,18 +163,38 @@ class OptionsController extends Controller
     }
 
     /**
-     * Finds the Options model based on its primary key value.
+     * Finds the Complexes model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Options the loaded model
+     * @return Complexes the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Options::findOne(['id' => $id])) !== null) {
+        if (($model = Complexes::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionRegions()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $city_id = $parents[0];
+                $out = Regions::find()
+                    ->select(['id', 'name_tr as name'])
+                    ->where([
+                        'city_id' => $city_id
+                    ])
+                    ->asArray()->all();
+                return ['output'=>$out, 'selected'=>''];
+            }
+        }
+        return ['output'=>'', 'selected'=>''];
     }
 }

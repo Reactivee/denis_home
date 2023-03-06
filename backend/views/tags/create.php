@@ -3,21 +3,18 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Cities $model */
-/** @var array $regions */
+/** @var common\models\Tags $model */
 
-$this->title = 'Create Cities';
-$this->params['breadcrumbs'][] = ['label' => 'Cities', 'url' => ['index']];
+$this->title = 'Create Tags';
+$this->params['breadcrumbs'][] = ['label' => 'Tags', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cities-create">
+<div class="tags-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'regions' => $regions,
-
     ]) ?>
 
 </div>

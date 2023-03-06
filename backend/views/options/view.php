@@ -5,15 +5,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var common\models\Cities $model */
+/** @var common\models\Options $model */
 /** @var \yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Cities', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Options', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="cities-view">
+<div class="options-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,7 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+
 
             <?= DetailView::widget([
                 'model' => $model,
@@ -37,33 +38,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title_tr',
                     'title_ru',
                     'title_en',
-                    'text_en:ntext',
-                    'text_tr:ntext',
-                    'text_ru:ntext',
-                    'link',
-                    //'img',
-                    [
-                        'attribute' => 'img',
-                        'format' => 'html',
-                        'value' => function ($model) {
-                            if ($model->img)
-                                return Html::img($model->img, ['alt' => 'My logo', 'width' => '200px']);
-                        }
-                    ]
+                    'icon',
+                    'weight',
                 ],
             ]) ?>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'id',
-                    'city_id',
-                    'name_tr',
-                    'name_ru',
-                    'name_en',
+                    'value_tr',
+                    'value_ru',
+                    'value_en',
+                    'icon',
+                    'weight',
                 ],
             ]); ?>
         </div>

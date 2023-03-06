@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "cities".
@@ -16,6 +17,8 @@ use Yii;
  * @property string|null $text_ru
  * @property string|null $img
  * @property string|null $link
+ *
+ * @property Regions[] $regions
  */
 class Cities extends \yii\db\ActiveRecord
 {
@@ -54,5 +57,17 @@ class Cities extends \yii\db\ActiveRecord
             'img' => 'Img',
             'link' => 'Link',
         ];
+    }
+
+    public function getRegions()
+    {
+        return $this->hasMany(Regions::class, ['city_id' => 'id']);
+
+    }
+
+    public static function getCitiesList()
+    {
+        $array = self::find()->asArray()->all();
+        return ArrayHelper::map($array,'id','title_tr');
     }
 }
