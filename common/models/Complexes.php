@@ -117,7 +117,7 @@ class Complexes extends \yii\db\ActiveRecord
      */
     public function getComplexImages()
     {
-        return $this->hasMany(ComplexImages::class, ['complex_id' => 'id']);
+        return $this->hasMany(ComplexImages::class, ['complex_id' => 'id'])->orderBy(['weight'=>SORT_ASC]);
     }
     /**
      * Gets query for [[ComplexOptions]].

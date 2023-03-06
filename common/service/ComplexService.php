@@ -201,22 +201,26 @@ class ComplexService
             }
         }
     }
-    public static function deleteImages(Complexes $complex)
+    public static function sortImages(Complexes $complex)
     {
-        $images = json_decode($complex->images,true);
+        $images = json_decode($complex->sorted_images,true);
+        //dd($images);
         if (!empty($images))
         {
             $i = 1;
             foreach ($images as $key => $image)
             {
-                $complex_image = new ComplexImages();
-                $complex_image->complex_id = $complex->id;
-                $complex_image->path = $image['path'];
-                $complex_image->generate_name = $image['generate_name'];
-                $complex_image->name = $key;
-                $complex_image->weight = $i;
-                $complex_image->save();
-                $i++;
+                $complex_image = ComplexImages::find()
+                    ->where([
+                        'complex_id' => $complex->id,
+                        'generate_name' => $image['key'],
+                    ])->one();
+                if (!empty($complex_image))
+                {
+                    $complex_image->weight = $i;
+                    $complex_image->save();
+                    $i++;
+                }
             }
         }
     }

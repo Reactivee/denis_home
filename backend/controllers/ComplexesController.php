@@ -289,6 +289,7 @@ class ComplexesController extends Controller
         if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
         {
             ComplexService::saveImages($model);
+            ComplexService::sortImages($model);
             return $this->redirect(['view','id' => $id]);
         }
         return $this->render('images',[
