@@ -7,6 +7,7 @@ use dosamigos\gallery\Gallery;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -123,6 +124,34 @@ $this->registerCss($css);
                     'price',
                     'count_rooms',
                     'area',
+                    [
+                            'attribute' => 'images',
+                        'label' => 'images',
+                        'format' => 'raw',
+                        'value' => function(Apartments $model)
+                        {
+                            $return = '';
+                            if ($model->apartmentImages)
+                            {
+                                foreach ($model->apartmentImages as $image)
+                                {
+                                    $return .= Html::img($image->path,['style'=>'max-width: 100px;']);
+                                }
+                            }
+                            return $return;
+                        }
+                    ],
+                    [
+                        'class' => ActionColumn::className(),
+                        'template' => '{apartment-images}',
+                        'buttons' => [
+                              'apartment-images' => function($url,Apartments $model)
+                              {
+                                  $button = '<a class="btn btn-primary" href="' . $url . '">Set Image</a>';
+                                  return $button;
+                              }
+                        ]
+                    ],
                 ],
             ]); ?>
 
