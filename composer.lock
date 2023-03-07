@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e69b9660cb94bc142f382db43b69afa",
+    "content-hash": "f6894375a516908558cbea5e7ed23f70",
     "packages": [
         {
             "name": "2amigos/yii2-gallery-widget",
@@ -70,6 +70,53 @@
                 "source": "https://github.com/2amigos/yii2-gallery-widget/tree/master"
             },
             "time": "2017-09-09T16:01:44+00:00"
+        },
+        {
+            "name": "2amigos/yii2-transliterator-helper",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2amigos/yii2-transliterator-helper.git",
+                "reference": "d43b5b58b55ef79bcaf092e70eaa30f458417dd5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2amigos/yii2-transliterator-helper/zipball/d43b5b58b55ef79bcaf092e70eaa30f458417dd5",
+                "reference": "d43b5b58b55ef79bcaf092e70eaa30f458417dd5",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\transliterator\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "ramirez.cobos@gmail.com",
+                    "homepage": "http://2amigos.us"
+                }
+            ],
+            "description": "Transliterator Helper for Yii2.",
+            "keywords": [
+                "extension",
+                "helper",
+                "transliterator",
+                "yii"
+            ],
+            "support": {
+                "issues": "https://github.com/2amigos/yii2-transliterator-helper/issues",
+                "source": "https://github.com/2amigos/yii2-transliterator-helper/tree/master"
+            },
+            "time": "2017-06-20T15:23:26+00:00"
         },
         {
             "name": "almasaeed2010/adminlte",

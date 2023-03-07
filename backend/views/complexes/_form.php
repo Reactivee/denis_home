@@ -152,7 +152,6 @@ use yii\widgets\ActiveForm;
                     'model' => $apartments[0],
                     'formId' => 'dynamic-form',
                     'formFields' => [
-                        'id',
                         'price',
                         'count_rooms',
                         'area',

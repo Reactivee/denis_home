@@ -180,18 +180,18 @@ class ComplexesController extends Controller
             $model->infrastructure_ids = $post['Complexes']['infrastructure_ids'];
             $oldIDs = ArrayHelper::map($apartments, 'id', 'id');
 
-            $apartments = MultipleModelService::createMultiple(Apartments::className());
+            $apartments = MultipleModelService::createMultiple(Apartments::className(),$apartments);
             Model::loadMultiple($apartments, Yii::$app->request->post());
             $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($apartments, 'id', 'id')));
 
             $valid = $model->validate();
             $valid = Model::validateMultiple($apartments) && $valid;
-            //dd('csdcs');
             if ($valid) {
+
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        if (! empty($deletedIDs)) {
+                        if (!empty($deletedIDs)) {
                             Apartments::deleteAll(['id' => $deletedIDs]);
                         }
                         foreach ($apartments as $apartment) {
@@ -203,6 +203,7 @@ class ComplexesController extends Controller
                         }
                     }
                     if ($flag) {
+                        $model->save();
                         ComplexService::updateTagIds($model);
                         ComplexService::updateOptions($model);
                         ComplexService::updateInfrastructures($model);
@@ -210,10 +211,10 @@ class ComplexesController extends Controller
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
                 } catch (\Exception $e) {
+                    Yii::$app->session->set('error','Error');
                     $transaction->rollBack();
                 }
             }
-            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $model->tag_ids = ArrayHelper::map($model->getTags()->asArray()->all(),'id','id');

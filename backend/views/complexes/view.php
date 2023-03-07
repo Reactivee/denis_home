@@ -69,6 +69,9 @@ $this->registerCss($css);
                         'attribute' => 'type_id',
                         'value' => $model->type_id!=null?$model->type->title_tr:''
                     ],
+                    'title_tr',
+                    'title_ru',
+                    'title_en',
                     'description_tr:ntext',
                     'description_ru:ntext',
                     'description_en:ntext',
