@@ -1,6 +1,8 @@
 <?php
 namespace common\service;
 
+use common\models\ApartmentImages;
+use common\models\Apartments;
 use common\models\Complexes;
 use common\models\ComplexImages;
 use common\models\ComplexInfrastructure;
@@ -224,4 +226,64 @@ class ComplexService
             }
         }
     }
+
+    // APARTMENT IMAGES
+
+
+    public static function saveApartmentImages(Apartments $apartment)
+    {
+        $images = json_decode($apartment->images,true);
+        if (!empty($images))
+        {
+            $old_images = $apartment->apartmentImages;
+            if (!empty($old_images))
+            {
+                $last_image=ApartmentImages::find()
+                    ->where([
+                        'apartment_id' => $apartment->id
+                    ])->orderBy([
+                        'weight' =>SORT_DESC
+                    ])->one();
+                $i = $last_image->weight+1;
+            }
+            else
+                $i = 1;
+            foreach ($images as $key => $image)
+            {
+                $apartment_image = new ApartmentImages();
+                $apartment_image->apartment_id = $apartment->id;
+                $apartment_image->path = $image['path'];
+                $apartment_image->generate_name = $image['generate_name'];
+                $apartment_image->name = $key;
+                $apartment_image->weight = $i;
+                $apartment_image->complex_id = $apartment->complex_id;
+                $apartment_image->save();
+                $i++;
+            }
+        }
+    }
+    public static function sortApartmentImages(Apartments $apartment)
+    {
+        $images = json_decode($apartment->sorted_images,true);
+        //dd($images);
+        if (!empty($images))
+        {
+            $i = 1;
+            foreach ($images as $key => $image)
+            {
+                $apartment_image = ApartmentImages::find()
+                    ->where([
+                        'apartment_id' => $apartment->id,
+                        'generate_name' => $image['key'],
+                    ])->one();
+                if (!empty($apartment_image))
+                {
+                    $apartment_image->weight = $i;
+                    $apartment_image->save();
+                    $i++;
+                }
+            }
+        }
+    }
+
 }

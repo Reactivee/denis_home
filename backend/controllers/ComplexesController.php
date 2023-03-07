@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\ApartmentImages;
 use common\models\Apartments;
 use common\models\ApartmentsSearch;
 use common\models\Complexes;
@@ -262,6 +263,21 @@ class ComplexesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    /**
+     * Finds the Complexes model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Apartments the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findApartmentModel($id)
+    {
+        if (($model = Apartments::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
     public function actionRegions()
     {
@@ -293,6 +309,19 @@ class ComplexesController extends Controller
             return $this->redirect(['view','id' => $id]);
         }
         return $this->render('images',[
+            'model' => $model
+        ]);
+    }
+    public function actionApartmentImages($id)
+    {
+        $model = $this->findApartmentModel($id);
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        {
+            ComplexService::saveApartmentImages($model);
+            ComplexService::sortApartmentImages($model);
+            return $this->redirect(['view','id' => $model->complex_id]);
+        }
+        return $this->render('apartment-images',[
             'model' => $model
         ]);
     }
@@ -341,6 +370,57 @@ class ComplexesController extends Controller
                 ])->one();
             $image_path = $complex_image->path;
             if ($complex_image->delete()) {
+                if (file_exists(Yii::getAlias('@rootDir').$image_path))
+                    unlink(Yii::getAlias('@rootDir').$image_path);
+                return $post['key'];
+            }
+        }
+        return ($post = Yii::$app->request->post()) ? $post['key'] : null;
+    }
+
+    public function actionUploadApartmentImages($id)
+    {
+        $model = $this->findApartmentModel($id);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = [];
+
+        if ($file_image = UploadedFile::getInstancesByName('complex_images')) {
+            foreach ($file_image as $file) {
+                $folder = '/complex/apartment-images/';
+                $uploads_folder = Yii::getAlias('@frontend').'/web/uploads'.$folder;
+                if (!file_exists($uploads_folder)) {
+                    mkdir($uploads_folder, 0777, true);
+                }
+                $ext = pathinfo($file->name, PATHINFO_EXTENSION);
+                $name = pathinfo($file->name, PATHINFO_FILENAME);
+                $generateName = Yii::$app->security->generateRandomString();
+                $path = $uploads_folder . $generateName . ".{$ext}";
+                $file->saveAs($path);
+                //dd($path);
+                $data = [
+                    'generate_name' => $generateName,
+                    'name' => $name,
+                    'path' => Yii::getAlias('@uploadsUrl') . $folder . $generateName . ".{$ext}"
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function actionDeleteApartmentImages()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $apartment_image = ApartmentImages::find()
+                ->where([
+                    'generate_name' => $post['key']
+                ])->one();
+            $image_path = $apartment_image->path;
+            if ($apartment_image->delete()) {
                 if (file_exists(Yii::getAlias('@rootDir').$image_path))
                     unlink(Yii::getAlias('@rootDir').$image_path);
                 return $post['key'];

@@ -21,6 +21,10 @@ use yii\behaviors\TimestampBehavior;
  */
 class Apartments extends \yii\db\ActiveRecord
 {
+
+    public $images;
+    public $deleted_images;
+    public $sorted_images;
     /**
      * {@inheritdoc}
      */
@@ -38,6 +42,8 @@ class Apartments extends \yii\db\ActiveRecord
             [['complex_id', 'count_rooms', 'created_at', 'updated_at'], 'integer'],
             [['price', 'area'], 'number'],
             [['complex_id'], 'exist', 'skipOnError' => true, 'targetClass' => Complexes::class, 'targetAttribute' => ['complex_id' => 'id']],
+            [['images','deleted_images','sorted_images'], 'safe'],
+
         ];
     }
 
@@ -71,7 +77,7 @@ class Apartments extends \yii\db\ActiveRecord
      */
     public function getApartmentImages()
     {
-        return $this->hasMany(ApartmentImages::class, ['apartment_id' => 'id']);
+        return $this->hasMany(ApartmentImages::class, ['apartment_id' => 'id'])->orderBy(['weight'=>SORT_ASC]);
     }
 
     /**
