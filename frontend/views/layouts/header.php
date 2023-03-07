@@ -15,7 +15,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand mr-auto" href="#">
+            <a class="navbar-brand mr-auto" href="/">
                 <img src="/uploads/logo/logo.svg" alt="">
             </a>
 
@@ -40,13 +40,13 @@
 
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link disabled color_gray" href="#">Недвижимость</a>
+                        <a class="nav-link  color_gray" href="/category">Недвижимость</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link disabled color_gray" href="#">Наши контакты</a>
+                        <a class="nav-link  color_gray" href="#">Наши контакты</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link disabled color_gray" href="#">FAQ</a>
+                        <a class="nav-link  color_gray" href="#">FAQ</a>
                     </li>
 
                 </ul>

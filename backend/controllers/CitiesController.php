@@ -86,7 +86,7 @@ class CitiesController extends Controller
         $regions = [new Regions()];
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                dd(Yii::$app->request->post());
+//                dd(Yii::$app->request->post());
                 $img = UploadedFile::getInstance($model, 'img');
                 //var_dump($img);die();
                 if ($img) {

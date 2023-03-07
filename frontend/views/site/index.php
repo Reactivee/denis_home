@@ -23,6 +23,7 @@ $this->title = 'Main page';
 
                     </div>
                     <div class="swiper-slide"><img class="w-100 main_banner" src="/uploads/banners/baner.png" alt="asd">
+
                     </div>
 
                 </div>
@@ -30,6 +31,7 @@ $this->title = 'Main page';
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
+
             <div class="container ">
                 <div class="row">
 
@@ -89,63 +91,64 @@ $this->title = 'Main page';
 
                     </div>
                 </div>
-
-                <div class="row mt-4 d-flex justify-content-between flex-wrap mx-0">
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="checkbox_block">
-                        <label class="color_gray position-relative checkbox_block_container">
-                            Надалеко от моря
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
+                <div>
+                    <div class="mt-4 d-flex justify-content-start flex-wrap mx-0">
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkbox_block">
+                            <label class="color_gray position-relative checkbox_block_container">
+                                Надалеко от моря
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -164,49 +167,8 @@ $this->title = 'Main page';
                     </div>
                     <div class="col-md-6">
                         <!-- Bar Chart -->
-                        <div class="position-relative overflow-hidden" style="height: 50px;">
-                            <div class="position-absolute w-100 overflow-hidden">
-                                <div style="height: 50px;">
-                                    <canvas class="js-chart"
-                                            data-hs-chartjs-options='{
-                "type": "bar",
-                "data": {
-                  "labels": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-                  "datasets": [{
-                    "data": [2, 3, 5, 7, 8, 5, 3, 2, 3, 6, 5, 4, 7, 5, 4, 3, 2],
-                    "backgroundColor": "#377dff",
-                    "borderColor": "#377dff"
-                  }]
-                },
-                "options": {
-                  "scales": {
-                    "yAxes": [{
-                      "display": false,
-                      "gridLines": {
-                        "display": false,
-                        "drawBorder": false
-                      },
-                      "ticks": {
-                        "beginAtZero": true
-                      }
-                    }],
-                    "xAxes": [{
-                      "display": false,
-                      "gridLines": {
-                        "display": false,
-                        "drawBorder": false
-                      }
-                    }]
-                  },
-                  "tooltips": {
-                    "custom": false
-                  }
-                }
-              }'></canvas>
-                                </div>
-                            </div>
-
-                            <div id="foregroundBarChartSingleResult" class=" w-100 overflow-hidden">
+                        <div class="position-relative overflow-hidden" style="height: 100px;">
+                            <div class=" w-100 overflow-hidden">
                                 <div style="height: 100px;">
                                     <canvas class="js-chart"
                                             data-hs-chartjs-options='{
@@ -246,12 +208,63 @@ $this->title = 'Main page';
               }'></canvas>
                                 </div>
                             </div>
+
+                            <div id="foregroundBarChartDoubleResult" class="overflow-hidden">
+                                <div style="height: 100px;">
+                                    <canvas class="js-chart"
+                                            data-hs-chartjs-options='{
+                "type": "bar",
+                "data": {
+                  "labels": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+                  "datasets": [{
+                    "data": [2, 3, 5, 7, 8, 5, 3, 2, 3, 6, 5, 4, 7, 5, 4, 3, 2],
+                    "backgroundColor": "#377dff",
+                    "borderColor": "#377dff"
+                  }]
+                },
+                "options": {
+                  "scales": {
+                    "yAxes": [{
+                      "display": false,
+                      "gridLines": {
+                        "display": false,
+                        "drawBorder": false
+                      },
+                      "ticks": {
+                        "beginAtZero": true
+                      }
+                    }],
+                    "xAxes": [{
+                      "display": false,
+                      "gridLines": {
+                        "display": false,
+                        "drawBorder": false
+                      }
+                    }]
+                  },
+                  "tooltips": {
+                    "custom": false
+                  }
+                }
+              }'></canvas>
+                                </div>
+                            </div>
                         </div>
                         <!-- End Bar Chart -->
 
                         <!-- Range Slider -->
                         <input class="js-ion-range-slider" type="text"
-                        >
+                               data-hs-ion-range-slider-options='{
+         "type": "double",
+         "extra_classes": "range-slider-custom",
+         "min": 0,
+         "max": 1000,
+         "from": 250,
+         "to": 750,
+         "result_min_target_el": "#pricemin",
+         "result_max_target_el": "#pricemax",
+         "foreground_target_el": "#foregroundBarChartDoubleResult"
+       }'>
 
                         <!-- End Range Slider -->
 
@@ -261,9 +274,7 @@ $this->title = 'Main page';
                     <button class="btn  main_btn px-5">Найти недвижимость</button>
                 </div>
             </form>
-            <div>
-                <canvas id="myChart"></canvas>
-            </div>
+
         </div>
 
     </section>
@@ -423,8 +434,10 @@ $this->title = 'Main page';
 
         <div class="container mt-5">
             <div class="main_title mt-4">
-                <div class="products_title color_gray f-40 text-center">Мы работаем во всех популярных городах Турции</div>
-                <div class="products_text color_gray f-24 text-center">Более 100 объектов с гарантией получение гражданство
+                <div class="products_title color_gray f-40 text-center">Мы работаем во всех популярных городах Турции
+                </div>
+                <div class="products_text color_gray f-24 text-center">Более 100 объектов с гарантией получение
+                    гражданство
                 </div>
             </div>
             <div class="row mt-4">
@@ -465,69 +478,133 @@ $this->title = 'Main page';
     <section class="our_team">
         <div class="container">
 
-        <div class="main_title mt-4">
-            <div class="products_title color_gray f-40 text-center">Команда экспертов в сфере недвижимости</div>
-            <div class="products_text color_gray f-24 text-center">Наши эксперты с радостью помогут Вам подобрать
-                оптимальный вариант, исходя из Ваших целе
+            <div class="main_title mt-4">
+                <div class="products_title color_gray f-40 text-center">Команда экспертов в сфере недвижимости</div>
+                <div class="products_text color_gray f-24 text-center">Наши эксперты с радостью помогут Вам подобрать
+                    оптимальный вариант, исходя из Ваших целе
+                </div>
             </div>
-        </div>
-            <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="team_card text-center">
-                        <div class="team_card_img">
-                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
-                        </div>
-                        <div class="team_card_content mt-4">
-                            <div class="team_card_title color_gray font-weight-bold f-24">
-                                Гюлан Дениз
-                            </div>
-                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
-                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
-                            <div class="team_card_social d-flex align-items-center card_social justify-content-center">
-                                <i class="fab fa-twitter"></i>
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                        </div>
-                    </div>
+            <div class=" mt-5">
+                <!-- Swiper -->
+                <div class="swiper team_slider">
+                    <div class="swiper-wrapper">
 
+                        <div class="swiper-slide">
+                            <div class="team_card text-center">
+                                <div class="team_card_img">
+                                    <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                                </div>
+                                <div class="team_card_content mt-4">
+                                    <div class="team_card_title color_gray font-weight-bold f-24">
+                                        Гюлан Дениз
+                                    </div>
+                                    <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                                    <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a
+                                                href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                    <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-slide">
+
+                            <div class="team_card text-center">
+                                <div class="team_card_img">
+                                    <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                                </div>
+                                <div class="team_card_content mt-4">
+                                    <div class="team_card_title color_gray font-weight-bold f-24">
+                                        Гюлан Дениз
+                                    </div>
+                                    <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                                    <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a
+                                                href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                    <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-slide">
+
+                            <div class="team_card text-center">
+                                <div class="team_card_img">
+                                    <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                                </div>
+                                <div class="team_card_content mt-4">
+                                    <div class="team_card_title color_gray font-weight-bold f-24">
+                                        Гюлан Дениз
+                                    </div>
+                                    <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                                    <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a
+                                                href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                    <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-slide">
+
+                            <div class="team_card text-center">
+                                <div class="team_card_img">
+                                    <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                                </div>
+                                <div class="team_card_content mt-4">
+                                    <div class="team_card_title color_gray font-weight-bold f-24">
+                                        Гюлан Дениз
+                                    </div>
+                                    <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                                    <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a
+                                                href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                    <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="swiper-slide">
+
+                            <div class="team_card text-center">
+                                <div class="team_card_img">
+                                    <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
+                                </div>
+                                <div class="team_card_content mt-4">
+                                    <div class="team_card_title color_gray font-weight-bold f-24">
+                                        Гюлан Дениз
+                                    </div>
+                                    <div class="team_card_text color_gray">Эксперт по недвижимости</div>
+                                    <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a
+                                                href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                    <div class="team_card_social d-flex align-items-center card_social justify-content-center">
+                                        <i class="fab fa-twitter"></i>
+                                        <i class="fab fa-facebook-f"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="col-md-4">
-                    <div class="team_card text-center">
-                        <div class="team_card_img">
-                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
-                        </div>
-                        <div class="team_card_content mt-4">
-                            <div class="team_card_title color_gray font-weight-bold f-24">
-                                Гюлан Дениз
-                            </div>
-                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
-                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
-                            <div class="team_card_social d-flex align-items-center card_social  justify-content-center">
-                                <i class="fab fa-twitter"></i>
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                        </div>
-                    </div>
 
-                </div> <div class="col-md-4">
-                    <div class="team_card text-center">
-                        <div class="team_card_img">
-                            <img class="w-100" src="./uploads/team/69-1588069949362.jpg" alt="team">
-                        </div>
-                        <div class="team_card_content mt-4">
-                            <div class="team_card_title color_gray font-weight-bold f-24">
-                                Гюлан Дениз
-                            </div>
-                            <div class="team_card_text color_gray">Эксперт по недвижимости</div>
-                            <div class="team_card_phone mt-3"><i class="fas fa-phone-alt mr-3"></i> <a href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
-                            <div class="team_card_social d-flex align-items-center card_social justify-content-center">
-                                <i class="fab fa-twitter"></i>
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </section>
@@ -536,5 +613,6 @@ $this->title = 'Main page';
 <?php
 $script = <<<JS
 
+
 JS;
-$this->registerJs($script, View::POS_END); ?>
+$this->registerJs($script); ?>

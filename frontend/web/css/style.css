@@ -1,6 +1,7 @@
 body {
     font-family: 'Inter';
     /*overflow: hidden;*/
+    background: #F8F9FC;
 }
 
 
@@ -11,15 +12,24 @@ body {
 .color_gray {
     color: #506B84;
 }
+.color_gray_more {
+    color: rgba(80, 107, 132, 0.5);
+
+}
 
 .color_white {
     color: white !important;
 }
 
+.gray_bg {
+    background: #F8F9FC;
+}
+
 .main_back {
     background: #0B378C;
 }
-.icon_little i{
+
+.icon_little i {
     margin-right: 15px;
     border-radius: 50%;
     width: 17px;
@@ -32,6 +42,7 @@ body {
     color: white;
     border: 1px solid white;
 }
+
 .main_btn {
     color: white;
     background: #0B378C;
@@ -55,13 +66,20 @@ body {
     font-size: 40px;
 }
 
+.f-32 {
+    font-weight: 600;
+    font-size: 32px;
+}
+
 /*header*/
 .navbar-collapse {
     flex-grow: 0 !important;
 }
-.header .header_social{
+
+.header .header_social {
     margin-left: 30px;
 }
+
 .navbar-nav a {
     font-size: 17px;
 
@@ -197,7 +215,7 @@ body {
 }
 
 .checkbox_block {
-    margin: 0 15px 15px 0;
+    margin: 0 15px 20px 0;
 }
 
 .price_input {
@@ -428,6 +446,177 @@ img {
     color: #FD8B19;
 }
 
+/*Product view*/
+.price {
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.card_view {
+    border: 1px solid #E5E8EB;
+}
+
+.currency_item {
+    font-weight: 600;
+    font-size: 12px;
+    background: white;
+    margin-right: 10px;
+    padding: 3px 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.currency_item.active {
+    background: #E2E9F6;
+}
+
+.view_options {
+    margin-top: 10px;
+}
+
+.view_options li {
+
+    font-size: 14px;
+    line-height: 27px;
+}
+
+.card_view .main_btn {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.main_btn:hover {
+    color: #d9d9d9 !important;
+}
+
+.room_plans_collapce {
+    background: #FFFFFF;
+    border: 1px solid rgba(80, 107, 132, 0.1);
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.product_view_accordion_item {
+    background: #FFFFFF;
+    border: 1px solid rgba(80, 107, 132, 0.1) !important;
+    border-radius: 5px;
+    transition: 0.3s all;
+}
+
+.product_view_accordion_item:hover {
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+
+}
+
+.accordion-header {
+    color: #506B84;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.accordion-button {
+    text-align: right !important;
+    color: #506B84 !important;
+    background: transparent !important;
+    cursor: pointer;
+    box-shadow: none !important;
+}
+
+.accordion-button::after {
+    margin: 0 !important;
+}
+
+.card_flat {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #E5E8EB;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    z-index: 1;
+    transition: 0.3s all;
+    opacity: 0;
+}
+
+.card_flat:hover {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: 0.4s all;
+}
+
+.card_flat:hover .white_heart {
+    /*transform: scale(1.1);*/
+    /*display: none;*/
+}
+
+.card_flat_img {
+    position: relative;
+    padding: 45px;
+    transition: 0.5s all;
+}
+
+.card_flat_price {
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.card_flat_desc {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.white_heart {
+    z-index: 2;
+    display: none;
+}
+
+.gray_heart {
+    /*display: none;*/
+}
+
+.gray_heart, .white_heart {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.card_flat:hover .gray_heart {
+    /*transform: scale(1.1);*/
+    display: none;
+
+}
+
+.card_flat:hover .white_heart, .card_flat:hover .overlay {
+    /*transform: scale(1.1);*/
+    display: block;
+    opacity: 1;
+}
+.view_options_column{
+    flex: 0 0 50%;
+    width: 50%;
+    /*line-height: 10px;*/
+
+}
+.option_items{
+    margin-top: 25px;
+}
+.option_items_icon{
+    margin-right: 10px;
+}
+.descriptions_wrapper{
+    margin-top: 30px;
+}
+.descriptions_item_tags .tag_item{
+    font-size: 20px;
+}
 /*Footer*/
 .footer {
     margin-top: 60px;

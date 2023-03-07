@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "complexes".
@@ -108,6 +109,16 @@ class Complexes extends \yii\db\ActiveRecord
     public function getApartments()
     {
         return $this->hasMany(Apartments::class, ['complex_id' => 'id']);
+    }
+
+    public function getApartmentsGroup()
+    {
+        $grouped = Apartments::find()->where(['complex_id' => $this->id])->orderBy(['price' => SORT_ASC])->all();
+//    dd($grouped);
+        $grouped = ArrayHelper::index($grouped, null, 'count_rooms');
+// /       dd($grouped);
+        return $grouped;
+//        return $this->hasMany(Apartments::class, ['complex_id' => 'id'])->orderBy(['price' => SORT_ASC]);
     }
 
     /**
