@@ -26,16 +26,19 @@ use yii\widgets\ActiveForm;
            <div class="col-md-4">
                <?= $form->field($model, 'title_tr')->textInput() ?>
                <?= $form->field($model, 'description_tr')->textarea(['rows' => 6]) ?>
+               <?= $form->field($model, 'attractions_tr')->textarea(['rows' => 6]) ?>
 
            </div>
            <div class="col-md-4">
                <?= $form->field($model, 'title_ru')->textInput() ?>
                <?= $form->field($model, 'description_ru')->textarea(['rows' => 6]) ?>
+               <?= $form->field($model, 'attractions_ru')->textarea(['rows' => 6]) ?>
 
            </div>
            <div class="col-md-4">
                <?= $form->field($model, 'title_en')->textInput() ?>
                <?= $form->field($model, 'description_en')->textarea(['rows' => 6]) ?>
+               <?= $form->field($model, 'attractions_en')->textarea(['rows' => 6]) ?>
 
            </div>
            <div class="col-md-4">
@@ -149,6 +152,7 @@ use yii\widgets\ActiveForm;
                     'model' => $apartments[0],
                     'formId' => 'dynamic-form',
                     'formFields' => [
+                        'id',
                         'price',
                         'count_rooms',
                         'area',
@@ -172,7 +176,8 @@ use yii\widgets\ActiveForm;
                                     <div class="panel-body">
                                         <?php
                                         // necessary for update action.
-                                        if (! $apartment->isNewRecord) {
+                                        if (!$apartment->isNewRecord) {
+                                            //dd('csdcsd');
                                             echo Html::activeHiddenInput($apartment, "[{$i}]id");
                                         }
                                         ?>

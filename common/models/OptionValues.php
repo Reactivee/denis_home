@@ -36,7 +36,7 @@ class OptionValues extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['option_id', 'weight', 'created_at', 'updated_at'], 'integer'],
+            [['option_id', 'weight', 'created_at', 'updated_at','id'], 'integer'],
             [['value_tr', 'value_ru', 'value_en', 'icon'], 'string', 'max' => 255],
             [['option_id'], 'exist', 'skipOnError' => true, 'targetClass' => Options::class, 'targetAttribute' => ['option_id' => 'id']],
         ];

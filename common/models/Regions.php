@@ -31,7 +31,7 @@ class Regions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city_id'], 'integer'],
+            [['city_id','id'], 'integer'],
             [['name_tr', 'name_ru', 'name_en'], 'string', 'max' => 255],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::class, 'targetAttribute' => ['city_id' => 'id']],
         ];

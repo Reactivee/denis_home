@@ -39,7 +39,7 @@ class Apartments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['complex_id', 'count_rooms', 'created_at', 'updated_at'], 'integer'],
+            [['complex_id', 'count_rooms', 'created_at', 'updated_at','id'], 'integer'],
             [['price', 'area'], 'number'],
             [['complex_id'], 'exist', 'skipOnError' => true, 'targetClass' => Complexes::class, 'targetAttribute' => ['complex_id' => 'id']],
             [['images','deleted_images','sorted_images'], 'safe'],

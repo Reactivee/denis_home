@@ -72,8 +72,12 @@ $this->registerCss($css);
                     'description_tr:ntext',
                     'description_ru:ntext',
                     'description_en:ntext',
-                    'count_buildings:ntext',
-                    'count_storeys:ntext',
+                    'attractions_tr:ntext',
+                    'attractions_ru:ntext',
+                    'attractions_en:ntext',
+                    'count_buildings',
+                    'count_storeys',
+
                     [
                             'attribute' => 'created_at',
                             'value' => function($model)
