@@ -32,6 +32,8 @@ use yii\helpers\ArrayHelper;
  * @property string|null $attractions_ru
  * @property string|null $attractions_en
  * @property string|null $slug
+ * @property string|null $latitude
+ * @property string|null $longitude
  *
  * @property Apartments[] $apartments
  * @property ComplexImages[] $complexImages
@@ -66,7 +68,7 @@ class Complexes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','attractions_tr','attractions_ru','attractions_en','slug'], 'string'],
+            [['address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','attractions_tr','attractions_ru','attractions_en','slug','longitude','latitude'], 'string'],
             [['city_id', 'region_id', 'created_at', 'updated_at', 'created_by', 'updated_by','count_buildings', 'count_storeys',], 'integer'],
             [['tag_ids','images','options','infrastructure_ids','sorted_images','deleted_images'], 'safe'],
             [['address','city_id','region_id','address', 'description_tr', 'description_ru', 'description_en', 'title_tr','title_ru','title_en','type_id','count_buildings','count_storeys'], 'required'],
@@ -150,7 +152,7 @@ class Complexes extends \yii\db\ActiveRecord
      */
     public function getComplexOptions()
     {
-        return $this->hasMany(ComplexOptions::class, ['complex_id' => 'id']);
+        return $this->hasMany(ComplexOptions::class, ['complex_id' => 'id'])->with(['option','value']);
     }
     /**
      * Gets query for [[ComplexOptions]].

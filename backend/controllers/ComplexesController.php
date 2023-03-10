@@ -12,6 +12,7 @@ use common\models\ComplexOptions;
 use common\models\ComplexOptionsSearch;
 use common\models\Options;
 use common\models\Regions;
+use common\service\ComplexDataService;
 use common\service\ComplexService;
 use common\service\MultipleModelService;
 use Yii;
@@ -428,5 +429,11 @@ class ComplexesController extends Controller
             }
         }
         return ($post = Yii::$app->request->post()) ? $post['key'] : null;
+    }
+
+    public function actionTest($id)
+    {
+        $complex_data = new ComplexDataService($id);
+        $complex_data->complexViewData();
     }
 }
