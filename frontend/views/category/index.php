@@ -1,7 +1,7 @@
 <?php use yii\bootstrap4\Breadcrumbs;
 
 $this->params['breadcrumbs'][] = $this->title;
-
+//dd($estate->complexOptions);
 ?>
 <section class=" gray_bg">
     <div class="container">
@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="view_price d-flex align-items-center justify-content-between">
                                 <span class="color_gray">от <span class="price">130 500$</span> </span>
                                 <div class="currency d-flex align-items-center">
-                                    <span class="currency_item active">USD</span>
-                                    <span class="currency_item ">EUR</span>
-                                    <span class="currency_item ">RUB</span>
+                                    <span class="currency_item active"><a class="text-decoration-none" href="#"> USD</a></span>
+                                    <span class="currency_item "><a class="text-decoration-none" href=""> EUR</a></span>
+                                    <span class="currency_item "><a class="text-decoration-none" href=""> RUB</a></span>
                                 </div>
                             </div>
                             <div class="view_options w-100">
@@ -83,10 +83,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <? foreach ($estate->apartmentsGroup as $key => $item) { ?>
                     <div class="accordion-item product_view_accordion_item mt-4">
-                        <div class="accordion-header" id="headingOne">
+                        <div class="accordion-header" id="headingOne<?= $key ?>">
                             <div class="accordion-button d-flex justify-content-between" data-bs-toggle="collapse"
-                                 data-bs-target="#collapseOne"
-                                 aria-expanded="true" aria-controls="collapseOne">
+                                 data-bs-target="#collapseOne<?= $key ?>"
+                                 aria-expanded="false" aria-controls="collapseOne<?= $key ?>">
                                 <div class="view_room product_view_accordion_title">
                                     <span><?= $key ?> -комнатные</span>
                                 </div>
@@ -104,7 +104,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                         </div>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+
+                        <div id="collapseOne<?= $key ?>" class="accordion-collapse collapse"
+                             aria-labelledby="headingOne<?= $key ?>"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body py-5">
 
@@ -150,6 +152,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="options_block">
                     <div class="row">
+
                         <div class="view_options_column">
                             <div class="view_options w-100">
                                 <ul class="list-unstyled color_gray">
@@ -206,78 +209,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class=" ">
                         <div class="view_options w-100">
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="option_items  d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="option_items d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
+                                <? foreach ($estate->complexOptions as $option) { ?>
+                                    <div class="col-md-3">
+                                        <div class="option_items  d-flex align-items-center">
+                                            <div class="option_items_icon">
+                                                <img src="/uploads/icon_options/option1.svg" alt="">
+                                            </div>
+                                            <div class="option_items_text">
+                                                <p class="p-0 m-0 color_gray_more"><?= $option->option->title_tr ?></p>
+                                                <span class="font-weight-bold w-50 color_gray"><?= $option->value->value_tr ?></span>
+                                            </div>
 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="option_items d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="option_items d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="option_items d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="option_items d-flex align-items-center">
-                                        <div class="option_items_icon">
-                                            <img src="/uploads/icon_options/option1.svg" alt="">
-                                        </div>
-                                        <div class="option_items_text">
-                                            <p class="p-0 m-0 color_gray_more">класс жилья:</p>
-                                            <span class="font-weight-bold w-50 color_gray">Премиум</span>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                <? } ?>
                             </div>
                         </div>
                     </div>
