@@ -14,14 +14,14 @@ use Yii;
  * @property int|null $weight
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property string|null $name
+ * @property string|null $generate_name
  *
  * @property Apartments $apartment
  */
 class ApartmentImages extends \yii\db\ActiveRecord
 {
 
-
-    public $images;
 
     /**
      * {@inheritdoc}
@@ -40,7 +40,6 @@ class ApartmentImages extends \yii\db\ActiveRecord
             [['apartment_id', 'complex_id', 'weight', 'created_at', 'updated_at'], 'integer'],
             [['path'], 'string', 'max' => 255],
             [['apartment_id'], 'exist', 'skipOnError' => true, 'targetClass' => Apartments::class, 'targetAttribute' => ['apartment_id' => 'id']],
-            [['images'], 'safe'],
         ];
     }
 

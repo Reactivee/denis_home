@@ -3,9 +3,11 @@
 use common\models\Apartments;
 use common\models\Complexes;
 use common\models\ComplexOptions;
+use dosamigos\gallery\Gallery;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -17,6 +19,15 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Complexes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+$css = <<<CSS
+    .amigos-gallery img
+    {
+        max-width: 200px;
+    }
+CSS;
+$this->registerCss($css);
+
 ?>
 <div class="complexes-view">
 
@@ -31,6 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Set Images', ['images', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+
     </p>
 
     <div class="row">
@@ -56,11 +69,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'type_id',
                         'value' => $model->type_id!=null?$model->type->title_tr:''
                     ],
+                    'title_tr',
+                    'title_ru',
+                    'title_en',
                     'description_tr:ntext',
                     'description_ru:ntext',
                     'description_en:ntext',
-                    'count_buildings:ntext',
-                    'count_storeys:ntext',
+                    'attractions_tr:ntext',
+                    'attractions_ru:ntext',
+                    'attractions_en:ntext',
+                    'count_buildings',
+                    'count_storeys',
+
                     [
                             'attribute' => 'created_at',
                             'value' => function($model)
@@ -82,6 +102,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $return;
                             }
                     ],
+                    [
+                            'attribute' => 'infrastructure_ids',
+                            'label' => 'Infrastructures',
+                            'format' => 'raw',
+                            'value' => function(Complexes $model)
+                            {
+                                foreach ($model->infrastructures as $infrastructure)
+                                {
+                                    $return .='<span class="btn btn-danger">'.$infrastructure->title_tr.'</span>';
+                                }
+
+                                return $return;
+                            }
+                    ],
+
                 ],
             ]) ?>
         </div>
@@ -96,6 +131,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     'price',
                     'count_rooms',
                     'area',
+                    [
+                            'attribute' => 'images',
+                        'label' => 'images',
+                        'format' => 'raw',
+                        'value' => function(Apartments $model)
+                        {
+                            $return = '';
+                            if ($model->apartmentImages)
+                            {
+                                foreach ($model->apartmentImages as $image)
+                                {
+                                    $return .= Html::img($image->path,['style'=>'max-width: 100px;']);
+                                }
+                            }
+                            return $return;
+                        }
+                    ],
+                    [
+                        'class' => ActionColumn::className(),
+                        'template' => '{apartment-images}',
+                        'buttons' => [
+                              'apartment-images' => function($url,Apartments $model)
+                              {
+                                  $button = '<a class="btn btn-primary" href="' . $url . '">Set Image</a>';
+                                  return $button;
+                              }
+                        ]
+                    ],
                 ],
             ]); ?>
 
@@ -124,5 +187,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Images</h2>
+            <?php
+            $items = [];
+            if (!empty($images = $model->complexImages)) {
+                foreach ($images as $image) {
+                    array_push($items, [
+                        'src' => $image->path,
+                        'options' => ['title' => $image->name, 'class' => 'amigos-gallery']
+                    ]);
+                }
+            }
+            echo Gallery::widget(['items' => $items]);
 
+            ?>
+        </div>
+    </div>
 </div>

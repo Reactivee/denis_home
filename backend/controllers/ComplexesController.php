@@ -2,14 +2,17 @@
 
 namespace backend\controllers;
 
+use common\models\ApartmentImages;
 use common\models\Apartments;
 use common\models\ApartmentsSearch;
 use common\models\Complexes;
 use common\models\ComplexesSearch;
+use common\models\ComplexImages;
 use common\models\ComplexOptions;
 use common\models\ComplexOptionsSearch;
 use common\models\Options;
 use common\models\Regions;
+use common\service\ComplexDataService;
 use common\service\ComplexService;
 use common\service\MultipleModelService;
 use Yii;
@@ -18,6 +21,8 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * ComplexesController implements the CRUD actions for Complexes model.
@@ -100,6 +105,7 @@ class ComplexesController extends Controller
                 $post = Yii::$app->request->post();
                 $model->tag_ids = $post['Complexes']['tag_ids'];
                 $model->options = $post['Complexes']['options'];
+                $model->infrastructure_ids = $post['Complexes']['infrastructure_ids'];
 
                 $apartments = MultipleModelService::createMultiple(Apartments::className());
                 Model::loadMultiple($apartments, Yii::$app->request->post());
@@ -122,6 +128,7 @@ class ComplexesController extends Controller
                         if ($flag) {
                             ComplexService::saveTags($model);
                             ComplexService::saveOptions($model);
+                            ComplexService::saveInfrastructures($model);
                             $transaction->commit();
                             return $this->redirect(['view', 'id' => $model->id]);
                         }
@@ -171,20 +178,21 @@ class ComplexesController extends Controller
             $post = Yii::$app->request->post();
             $model->tag_ids = $post['Complexes']['tag_ids'];
             $model->options = $post['Complexes']['options'];
+            $model->infrastructure_ids = $post['Complexes']['infrastructure_ids'];
             $oldIDs = ArrayHelper::map($apartments, 'id', 'id');
 
-            $apartments = MultipleModelService::createMultiple(Apartments::className());
+            $apartments = MultipleModelService::createMultiple(Apartments::className(),$apartments);
             Model::loadMultiple($apartments, Yii::$app->request->post());
             $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($apartments, 'id', 'id')));
 
             $valid = $model->validate();
             $valid = Model::validateMultiple($apartments) && $valid;
-            //dd('csdcs');
             if ($valid) {
+
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        if (! empty($deletedIDs)) {
+                        if (!empty($deletedIDs)) {
                             Apartments::deleteAll(['id' => $deletedIDs]);
                         }
                         foreach ($apartments as $apartment) {
@@ -196,19 +204,22 @@ class ComplexesController extends Controller
                         }
                     }
                     if ($flag) {
+                        $model->save();
                         ComplexService::updateTagIds($model);
                         ComplexService::updateOptions($model);
+                        ComplexService::updateInfrastructures($model);
                         $transaction->commit();
                         return $this->redirect(['view', 'id' => $model->id]);
                     }
                 } catch (\Exception $e) {
+                    Yii::$app->session->set('error','Error');
                     $transaction->rollBack();
                 }
             }
-            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $model->tag_ids = ArrayHelper::map($model->getTags()->asArray()->all(),'id','id');
+        $model->infrastructure_ids = ArrayHelper::map($model->getInfrastructures()->asArray()->all(),'id','id');
         if (!empty($complex_options))
         {
             foreach ($complex_options as $complex_option)
@@ -254,6 +265,21 @@ class ComplexesController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+    /**
+     * Finds the Complexes model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return Apartments the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findApartmentModel($id)
+    {
+        if (($model = Apartments::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
     public function actionRegions()
     {
@@ -273,5 +299,141 @@ class ComplexesController extends Controller
             }
         }
         return ['output'=>'', 'selected'=>''];
+    }
+
+    public function actionImages($id)
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        {
+            ComplexService::saveImages($model);
+            ComplexService::sortImages($model);
+            return $this->redirect(['view','id' => $id]);
+        }
+        return $this->render('images',[
+            'model' => $model
+        ]);
+    }
+    public function actionApartmentImages($id)
+    {
+        $model = $this->findApartmentModel($id);
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        {
+            ComplexService::saveApartmentImages($model);
+            ComplexService::sortApartmentImages($model);
+            return $this->redirect(['view','id' => $model->complex_id]);
+        }
+        return $this->render('apartment-images',[
+            'model' => $model
+        ]);
+    }
+
+
+    public function actionUploadImages($id)
+    {
+        $model = $this->findModel($id);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = [];
+
+        if ($file_image = UploadedFile::getInstancesByName('complex_images')) {
+            foreach ($file_image as $file) {
+                $folder = '/complex/images/';
+                $uploads_folder = Yii::getAlias('@frontend').'/web/uploads'.$folder;
+                if (!file_exists($uploads_folder)) {
+                    mkdir($uploads_folder, 0777, true);
+                }
+                $ext = pathinfo($file->name, PATHINFO_EXTENSION);
+                $name = pathinfo($file->name, PATHINFO_FILENAME);
+                $generateName = Yii::$app->security->generateRandomString();
+                $path = $uploads_folder . $generateName . ".{$ext}";
+                $file->saveAs($path);
+                //dd($path);
+                $data = [
+                    'generate_name' => $generateName,
+                    'name' => $name,
+                    'path' => Yii::getAlias('@uploadsUrl') . $folder . $generateName . ".{$ext}"
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function actionDeleteImages()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $complex_image = ComplexImages::find()
+                ->where([
+                    'generate_name' => $post['key']
+                ])->one();
+            $image_path = $complex_image->path;
+            if ($complex_image->delete()) {
+                if (file_exists(Yii::getAlias('@rootDir').$image_path))
+                    unlink(Yii::getAlias('@rootDir').$image_path);
+                return $post['key'];
+            }
+        }
+        return ($post = Yii::$app->request->post()) ? $post['key'] : null;
+    }
+
+    public function actionUploadApartmentImages($id)
+    {
+        $model = $this->findApartmentModel($id);
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = [];
+
+        if ($file_image = UploadedFile::getInstancesByName('complex_images')) {
+            foreach ($file_image as $file) {
+                $folder = '/complex/apartment-images/';
+                $uploads_folder = Yii::getAlias('@frontend').'/web/uploads'.$folder;
+                if (!file_exists($uploads_folder)) {
+                    mkdir($uploads_folder, 0777, true);
+                }
+                $ext = pathinfo($file->name, PATHINFO_EXTENSION);
+                $name = pathinfo($file->name, PATHINFO_FILENAME);
+                $generateName = Yii::$app->security->generateRandomString();
+                $path = $uploads_folder . $generateName . ".{$ext}";
+                $file->saveAs($path);
+                //dd($path);
+                $data = [
+                    'generate_name' => $generateName,
+                    'name' => $name,
+                    'path' => Yii::getAlias('@uploadsUrl') . $folder . $generateName . ".{$ext}"
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function actionDeleteApartmentImages()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            $apartment_image = ApartmentImages::find()
+                ->where([
+                    'generate_name' => $post['key']
+                ])->one();
+            $image_path = $apartment_image->path;
+            if ($apartment_image->delete()) {
+                if (file_exists(Yii::getAlias('@rootDir').$image_path))
+                    unlink(Yii::getAlias('@rootDir').$image_path);
+                return $post['key'];
+            }
+        }
+        return ($post = Yii::$app->request->post()) ? $post['key'] : null;
+    }
+
+    public function actionTest($id)
+    {
+        $complex_data = new ComplexDataService($id);
+        $complex_data->complexViewData();
     }
 }
