@@ -60,7 +60,7 @@ use yii\helpers\Html;
                         <div class="footer_adress  d-flex align-items-start justify-content-center">
                             <div class=" d-flex align-items-start card_social  justify-content-center">
                                 <i class="fas fa-phone-alt mr-3"></i>
-                                <a class="color_white" href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
+                                <a class="color_white text-decoration-none" href="tel:+90 534 052 62 36">+90 534 052 62 36</a></div>
                         </div>
                     </div>
                     <div class="col-md-4">

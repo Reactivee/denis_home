@@ -1,5 +1,5 @@
 <header class="header  main_back">
-    <ul class="nav d-flex justify-content-end container">
+    <ul class="nav d-flex justify-content-end container align-items-center">
         <li class="nav-item header_social icon_little d-flex align-items-center">
             <i class="fab fa-twitter "></i>
             <a class="nav-link color_white f-16 pl-0" href="tel:+905340526236">+90 534 052 62 36</a>
@@ -9,7 +9,15 @@
             <a class="nav-link f-16 color_white pl-0" href="#">USD</a>
         </li>
         <li class="nav-item header_social">
-            <a class="nav-link f-16 color_white" href="#">Русский</a>
+            <div class="lang">
+                <div class="dropdown">
+                    <?= \lajax\languagepicker\widgets\LanguagePicker::widget([
+                        'skin' => \lajax\languagepicker\widgets\LanguagePicker::SKIN_DROPDOWN,
+                        'size' => \lajax\languagepicker\widgets\LanguagePicker::SIZE_SMALL
+                    ]); ?>
+                </div>
+            </div>
+            <!--            <a class="nav-link f-16 color_white" href="#">Русский</a>-->
         </li>
     </ul>
 
@@ -30,7 +38,7 @@
                         <a class="nav-link color_gray" href="#">Главная <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link color_gray" href="#">О нас</a>
+                        <a class="nav-link color_gray" href="/site/about">О нас</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link  color_gray" href="#" id="navbarDropdown" role="button"
@@ -43,10 +51,10 @@
                         <a class="nav-link  color_gray" href="/category">Недвижимость</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link  color_gray" href="#">Наши контакты</a>
+                        <a class="nav-link  color_gray" href="/site/contact">Наши контакты</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link  color_gray" href="#">FAQ</a>
+                        <a class="nav-link  color_gray" href="/site/faq">FAQ</a>
                     </li>
 
                 </ul>

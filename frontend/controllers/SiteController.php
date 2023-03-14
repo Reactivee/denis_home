@@ -4,6 +4,9 @@ namespace frontend\controllers;
 
 
 use common\models\LoginForm;
+use common\models\Tags;
+use common\models\TopBanner;
+use common\models\TypeFlat;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -77,8 +80,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-        return $this->render('index', compact('main_banner', 'address', 'about', 'advantages', 'ad_icons', 'gallery'));
+        $banner = TopBanner::find()->all();
+        $tags = Tags::find()->all();
+        $type = TypeFlat::find()->all();
+        return $this->render('index', [
+            'banner' => $banner,
+            'tag' => $tags,
+            'type' => $type,
+        ]);
     }
 
     /**
@@ -267,6 +276,11 @@ class SiteController extends Controller
         }
         return false;
 
+    }
+
+    public function actionFaq()
+    {
+        return $this->render('faq');
     }
 
 }

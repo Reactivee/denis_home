@@ -36,14 +36,14 @@ return [
             'searchEmptyCommand' => '!',    // the search string to enter in the 'Translation' search field to find not yet translated items, set to null to disable this feature
             'defaultExportStatus' => 1,     // the default selection of languages to export, set to 0 to select all languages by default
             'defaultExportFormat' => 'json',// the default format for export, can be 'json' or 'xml'
-            'tables' => [                   // Properties of individual tables
-                [
-                    'connection' => 'db',   // connection identifier
-                    'table' => '{{%language}}',         // table name
-                    'columns' => ['name', 'name_ascii'],// names of multilingual fields
-                    'category' => 'database-table-name',// the category is the database table name
-                ]
-            ],
+//            'tables' => [                   // Properties of individual tables
+//                [
+//                    'connection' => 'db',   // connection identifier
+//                    'table' => '{{%language}}',         // table name
+//                    'columns' => ['name', 'name_ascii'],// names of multilingual fields
+//                    'category' => 'database-table-name',// the category is the database table name
+//                ]
+//            ],
             'scanners' => [ // define this if you need to override default scanners (below)
                 '\lajax\translatemanager\services\scanners\ScannerPhpFunction',
                 '\lajax\translatemanager\services\scanners\ScannerPhpArray',
@@ -56,14 +56,14 @@ return [
     'components' => [
         'languagepicker' => [
             'class' => 'lajax\languagepicker\Component',        // List of available languages (icons and text)
-            'languages' => [ 'uz' => 'Uzbek', 'ru' => 'Русский','en' => 'English'],
+            'languages' => ['ru' => 'Русский', 'en' => 'English', 'tr' => 'Turkey'],
             'cookieName' => 'language',                         // Name of the cookie.
             'expireDays' => 64,                                 // The expiration time of the cookie is 64 days.
             'callback' => function () {
 //                if (!\Yii::$app->user->isGuest) {
-                    $user = \Yii::$app->user->identity;
-                    $user->language = \Yii::$app->language;
-                    $user->save();
+                $user = \Yii::$app->user->identity;
+                $user->language = \Yii::$app->language;
+                $user->save();
 //                }
             }
         ],
@@ -118,8 +118,8 @@ return [
 
         'urlManager' => [
             'class' => 'codemix\localeurls\UrlManager',
-//            'enableDefaultLanguageUrlCode' => true,
-//            'enableLanguagePersistence' => false,
+            'enableDefaultLanguageUrlCode' => true,
+            'enableLanguagePersistence' => false,
             'languages' => ['uz', 'ru', 'en'],
             'enableLanguageDetection' => true,
             'enablePrettyUrl' => true,

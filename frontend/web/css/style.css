@@ -12,6 +12,7 @@ body {
 .color_gray {
     color: #506B84;
 }
+
 .color_gray_more {
     color: rgba(80, 107, 132, 0.5);
 
@@ -51,6 +52,17 @@ body {
     border-radius: 5px;
 }
 
+/*button:hover {*/
+/*    !*opacity: 0.5;*!*/
+/*    background: #a4a4a4 !important;*/
+/*    color: white !important;*/
+/*}*/
+.main_btn:hover {
+    /*opacity: 0.5;*/
+    background: #304894 !important;
+    color: white !important;
+}
+
 .f-16 {
     font-size: 16px;
     font-weight: 600;
@@ -69,6 +81,13 @@ body {
 .f-32 {
     font-weight: 600;
     font-size: 32px;
+}
+
+.about_big_number {
+    font-size: 70px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
 }
 
 /*header*/
@@ -101,6 +120,18 @@ body {
 
 }
 
+.lang a {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.lang .dropdown-item {
+    color: black;
+    padding: 0 15px;
+}
+
+/*End header*/
 .main_banner {
     background-size: cover;
     object-fit: cover;
@@ -319,13 +350,21 @@ img {
 
 /*Type bulding*/
 .type_build {
+    padding: 60px 0;
+
     /*padding-bottom: 50px;*/
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../uploads/banners/type.png);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.8)), url(../uploads/banners/type.png);
+}
+
+.type_buildings {
+    margin: 60px 0;
+
 }
 
 .type_buildings_item {
-    margin-top: 50px;
     width: 100%;
+
+    height: 100%;
     /*background: #FFFFFF;*/
     border: 1px solid #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -333,8 +372,8 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 48px 20px;
+    justify-content: start;
+    padding: 60px 20px;
     text-align: center;
     cursor: pointer;
 }
@@ -347,6 +386,10 @@ img {
 
 .type_buildings_item i {
     font-size: 100px;
+}
+
+.type_buildings_item_text {
+    margin-top: 30px;
 }
 
 .type_buildings_item_text span {
@@ -526,6 +569,10 @@ img {
     margin: 0 !important;
 }
 
+.accordion-button_faq::after {
+    margin-left: auto !important;
+}
+
 .card_flat {
     position: relative;
     background: #FFFFFF;
@@ -599,24 +646,108 @@ img {
     display: block;
     opacity: 1;
 }
-.view_options_column{
+
+.view_options_column {
     flex: 0 0 50%;
     width: 50%;
     /*line-height: 10px;*/
 
 }
-.option_items{
+
+.option_items {
     margin-top: 25px;
 }
-.option_items_icon{
+
+.option_items_icon {
     margin-right: 10px;
 }
-.descriptions_wrapper{
+
+.descriptions_wrapper {
     margin-top: 30px;
 }
-.descriptions_item_tags .tag_item{
+
+.descriptions_item_tags .tag_item {
     font-size: 20px;
 }
+
+/*Faq*/
+.inner_banner {
+    padding: 190px 0;
+    background: url(/uploads/banners/inner.png);
+    /*background: linear-gradient(0deg, rgba(0, 0, 0, 0.76), rgba(0, 0, 0, 0.76)), url(/uploads/banners/inner.png);*/
+}
+
+.title_overlay {
+    color: white;
+}
+
+.title_overlay p {
+    font-size: 40px;
+    line-height: 48px;
+}
+
+.title_overlay span {
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.contact_form {
+    background: #0B378C;
+    border-radius: 5px;
+    padding: 70px 40px;
+}
+
+.contact_form_title p {
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.btn_faq {
+    margin-top: 30px;
+    background: #FD8B19;
+    border: 1px solid rgba(80, 107, 132, 0.1);
+    box-shadow: 22px 9px 10px rgba(0, 0, 0, 0.01), 12px 5px 8px rgba(0, 0, 0, 0.05), 6px 2px 6px rgba(0, 0, 0, 0.09), 1px 1px 3px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: white;
+    font-size: 24px;
+    width: 100%;
+}
+
+/*Contact*/
+.contact_wrap {
+    padding: 40px 50px;
+}
+
+.contact_address {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.about_blocks {
+    margin-top: 40px;
+}
+
+.about_ribbon {
+    padding: 60px 0;
+}
+
+.about_ribbon .form_text {
+    padding: 0 50px;
+    border-right: 2px solid rgba(195, 209, 221, 0.25);
+}
+
+.about_cards_icon {
+    width: 115px;
+    height: 115px;
+}
+.card{
+    padding: 30px 40px;
+}
+.about_cards_section{
+    margin-top: 100px;
+}
+
 /*Footer*/
 .footer {
     margin-top: 60px;
